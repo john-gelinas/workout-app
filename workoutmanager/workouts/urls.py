@@ -8,3 +8,5 @@ router.register('api/workouts', WorkoutViewSet, 'workouts')
 router.register('api/exercises', ExerciseViewSet, 'exercises')
 router.register('api/exercisetypes', ExerciseTypeViewSet, 'exercisetypes')
 router.register('api/exercisecategories', ExerciseCategoryViewSet, 'exercisecategories')
+
+urlpatterns = router.urls
