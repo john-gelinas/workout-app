@@ -6,19 +6,19 @@ from .models import Profile, Workout, ExerciseType, ExerciseCategory, Exercise
 
 class ProfileAdmin(admin.ModelAdmin):
     model = Profile
-    # list_display = ["user", "height", "weight"]
+    list_display = ["user", "height", "weight"]
 
 class WorkoutAdmin(admin.ModelAdmin):
     model = Workout
-    # list_display = ["name", "date", "duration"]
+    list_display = ["name", "date", "duration"]
 
 class ExerciseCategoryAdmin(admin.ModelAdmin):
     model = ExerciseCategory
-    # list_display = ["name"]
+    list_display = ["name"]
 
 class ExerciseTypeAdmin(admin.ModelAdmin):
     model = ExerciseType
-    # list_display = ["name", "repsincluded", "weightsincluded", "durationincluded", "distanceincluded", "elevationincluded", "category", "image"]
+    list_display = ["name", "reps", "weights", "duration", "distance", "elevation", "category", "image"]
 
 class ExerciseAdmin(admin.ModelAdmin):
     model = Exercise
