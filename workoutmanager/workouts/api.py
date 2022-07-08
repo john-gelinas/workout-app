@@ -11,19 +11,19 @@ class ProfileViewSet(viewsets.ModelViewSet):
     ]
     serializer_class = ProfileSerializer
 
-class WorkoutViewSet(viewsets.ModelViewSet):
-    queryset = Workout.objects.all()
-    permission_classes = [
-        permissions.AllowAny
-    ]
-    serializer_class = WorkoutSerializer
-
 class ExerciseViewSet(viewsets.ModelViewSet):
     queryset = Exercise.objects.all()
     permission_classes = [
         permissions.AllowAny
     ]
     serializer_class = ExerciseSerializer
+
+class WorkoutViewSet(viewsets.ModelViewSet):
+    queryset = Workout.objects.all()
+    permission_classes = [
+        permissions.AllowAny
+    ]
+    serializer_class = WorkoutSerializer
 
 class ExerciseTypeViewSet(viewsets.ModelViewSet):
     queryset = ExerciseType.objects.all()
