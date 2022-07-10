@@ -63,3 +63,11 @@ https://dev.to/iamandrewluca/private-route-in-react-router-v6-lg5
 
 React Router Login Redirect
 https://stackblitz.com/github/remix-run/react-router/tree/main/examples/auth?file=src%2FApp.tsx
+
+Navbar and Styling via Material UI
+https://mui.com
+
+## TODO:
+- django live reload
+- workout modal component
+- redux Toolkit
