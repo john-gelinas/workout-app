@@ -3,10 +3,10 @@ from .api import ProfileViewSet, WorkoutViewSet, ExerciseViewSet, ExerciseTypeVi
 
 router = routers.DefaultRouter()
 
-router.register('api/profiles', ProfileViewSet, 'profiles')
-router.register('api/workouts', WorkoutViewSet, 'workouts')
-router.register('api/exercises', ExerciseViewSet, 'exercises')
-router.register('api/exercisetypes', ExerciseTypeViewSet, 'exercisetypes')
-router.register('api/exercisecategories', ExerciseCategoryViewSet, 'exercisecategories')
+router.register('profiles', ProfileViewSet, 'profiles')
+router.register('workouts', WorkoutViewSet, 'workouts')
+router.register('exercises', ExerciseViewSet, 'exercises')
+router.register('exercisetypes', ExerciseTypeViewSet, 'exercisetypes')
+router.register('exercisecategories', ExerciseCategoryViewSet, 'exercisecategories')
 
 urlpatterns = router.urls
