@@ -4,9 +4,8 @@
   "description": "`npm run dev`",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack --mode development --entry ./src/index.js --output-path ./static/frontend",
-    "build": "webpack --mode production --entry ./src/index.js --output-path ./static/frontend"
+    "dev": "webpack --mode development --watch ./workoutmanager/frontend/src/index.js --output-path ./workoutmanager/frontend/static/frontend",
+    "build": "webpack --mode production --entry ./workoutmanager/frontend/src/index.js --output-path ./workoutmanager/frontend/static/frontend"
   },
   "repository": {
     "type": "git",
