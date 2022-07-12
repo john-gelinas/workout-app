@@ -68,6 +68,7 @@ Navbar and Styling via Material UI
 https://mui.com
 
 ## TODO:
-- django live reload
-- workout modal component
-- redux Toolkit
+- ~django live reload
+- ~workout modal component
+- ~redux Toolkit
+- new/edit workout form
