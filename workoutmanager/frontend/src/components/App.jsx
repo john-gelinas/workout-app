@@ -10,16 +10,16 @@ const App = () => {
     palette: {
       mode: 'light',
       primary: {
-        main: '#1a237e',
+        main: '#4a93a6',
       },
       secondary: {
-        main: '#81c784',
+        main: '#a65d4a',
       },
     },
     typography: {
       footer: {
         fontFamily: ['monospace', 'Arial'].join(","),
-        fontSize: '20px'
+        fontSize: '16px'
       },
     },
   });
