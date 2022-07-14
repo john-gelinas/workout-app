@@ -6,7 +6,7 @@ import Typography from "@mui/material/Typography";
 
 const Workout = ({ name, date, duration }) => {
   return (
-    <Card sx={{ minWidth: 300, display: 'flex' }}>
+    <Card sx={{ minWidth: 300, display: 'flex' }} raised={true}>
       <CardActionArea>
         <CardContent>
           <Typography variant="h4">

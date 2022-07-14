@@ -3,27 +3,28 @@ import Header from "./layout/Header";
 import Footer from "./layout/Footer";
 import Workouts from "./workouts/Workouts";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import WorkoutForm from "./workouts/WorkoutForm";
 import { useSelector } from "react-redux";
+import { Paper } from "@mui/material";
 
 const App = () => {
-  const currentMode = useSelector((state) => state.theme.mode)
-  let mode = 'dark'
+  const currentMode = useSelector((state) => state.theme.mode);
+  let mode = "dark";
   const theme = createTheme({
     palette: {
       mode: currentMode,
       primary: {
-        main: '#4a93a6'
+        main: "#4a93a6",
       },
       secondary: {
-        main: '#a65d4a',
+        main: "#a65d4a",
       },
     },
     typography: {
       footer: {
-        fontFamily: ['monospace', 'Arial'].join(","),
-        fontSize: '16px'
+        fontFamily: ["monospace", "Arial"].join(","),
+        fontSize: "16px",
       },
     },
   });
@@ -31,10 +32,12 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <BrowserRouter>
-        <Header />
-        <Workouts />
-        <WorkoutForm />
-        <Footer/>
+        <Paper elevation={1}>
+          <Header />
+          <Workouts />
+          <WorkoutForm />
+          <Footer />
+        </Paper>
       </BrowserRouter>
     </ThemeProvider>
   );
