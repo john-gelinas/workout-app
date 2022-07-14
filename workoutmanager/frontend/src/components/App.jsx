@@ -33,6 +33,7 @@ const App = () => {
       <BrowserRouter>
         <Header />
         <Workouts />
+        <WorkoutForm />
         <Footer/>
       </BrowserRouter>
     </ThemeProvider>
