@@ -1,26 +1,19 @@
 import React from "react";
-import Card from "@mui/material/Card";
-import CardActionArea from "@mui/material/CardActionArea";
-import CardContent from "@mui/material/CardContent";
-import Typography from "@mui/material/Typography";
+import { Button, Stack } from "@mui/material";
+import SetForm from "./SetForm";
 
-const Workout = ({ name, date, duration }) => {
+const Workout = () => {
   return (
-    <Card sx={{ minWidth: 300, display: 'flex' }} raised={true}>
-      <CardActionArea>
-        <CardContent>
-          <Typography variant="h4">
-            {name}
-          </Typography>
-          <Typography variant="body1">
-            {date}
-          </Typography>
-          <Typography variant="subtitle1">
-            {duration}
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-    </Card>
+    <Stack
+      mt={2}
+      spacing={2}
+      alignItems="center"
+    >
+      <Button id="selectExercise" label="Select Exercise" variant="outlined">
+        Add Exercise
+      </Button>
+      <SetForm exercise={"exercise"}/>
+    </Stack>
   );
 };
 

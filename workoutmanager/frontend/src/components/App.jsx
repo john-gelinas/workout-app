@@ -2,9 +2,9 @@ import React from "react";
 import Header from "./layout/Header";
 import Footer from "./layout/Footer";
 import Workouts from "./workouts/Workouts";
+import Workout from "./workouts/Workout";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import WorkoutForm from "./workouts/WorkoutForm";
 import { useSelector } from "react-redux";
 import { Paper } from "@mui/material";
 
@@ -35,7 +35,7 @@ const App = () => {
         <Paper elevation={1}>
           <Header />
           <Workouts />
-          <WorkoutForm />
+          <Workout/>
           <Footer />
         </Paper>
       </BrowserRouter>

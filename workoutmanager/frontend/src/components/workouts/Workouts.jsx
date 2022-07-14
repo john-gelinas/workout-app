@@ -1,5 +1,5 @@
 import React from "react";
-import Workout from "./Workout";
+import WorkoutCard from "./WorkoutCard";
 import Divider from "@mui/material/Divider";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
@@ -39,7 +39,7 @@ const Workouts = () => {
       </Typography>
         {workouts.map((workout) => (
           <div key={workout.id}>
-            <Workout
+            <WorkoutCard
               name={workout.name}
               date={workout.date}
               duration={workout.duration}
