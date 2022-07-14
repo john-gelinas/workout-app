@@ -9,13 +9,13 @@ const Workout = ({ name, date, duration }) => {
     <Card sx={{ minWidth: 300, display: 'flex' }}>
       <CardActionArea>
         <CardContent>
-          <Typography variant="h4" color="initial">
+          <Typography variant="h4">
             {name}
           </Typography>
-          <Typography variant="body1" color="initial">
+          <Typography variant="body1">
             {date}
           </Typography>
-          <Typography variant="subtitle1" color="initial">
+          <Typography variant="subtitle1">
             {duration}
           </Typography>
         </CardContent>

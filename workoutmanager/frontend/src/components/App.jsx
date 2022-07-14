@@ -4,13 +4,17 @@ import Footer from "./layout/Footer";
 import Workouts from "./workouts/Workouts";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import WorkoutForm from "./workouts/WorkoutForm";
+import { useSelector } from "react-redux";
 
 const App = () => {
+  const currentMode = useSelector((state) => state.theme.mode)
+  let mode = 'dark'
   const theme = createTheme({
     palette: {
-      mode: 'light',
+      mode: currentMode,
       primary: {
-        main: '#4a93a6',
+        main: '#4a93a6'
       },
       secondary: {
         main: '#a65d4a',
