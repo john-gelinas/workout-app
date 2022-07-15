@@ -3,28 +3,17 @@ import WorkoutCard from "./WorkoutCard";
 import Divider from "@mui/material/Divider";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
+import { useGetWorkoutsQuery } from "../../api/apiSlice";
 
 const Workouts = () => {
-  const workouts = [
-    {
-      id: 1,
-      name: "Name",
-      date: "12-15-22 12:00:00",
-      duration: "47 minutes",
-    },
-    {
-      id: 2,
-      name: "Name",
-      date: "12-15-22 12:00:00",
-      duration: "47 minutes",
-    },
-    {
-      id: 3,
-      name: "Name",
-      date: "12-15-22 12:00:00",
-      duration: "47 minutes",
-    },
-  ];
+  const {
+    data: workouts = [],
+    isFetching,
+    isLoading,
+    isSuccess,
+    isError,
+    error,
+  } = useGetWorkoutsQuery();
 
   return (
     <div style={{ width: "fit-content", margin: "auto" }}>
@@ -34,9 +23,9 @@ const Workouts = () => {
         divider={<Divider flexItem />}
         alignItems="center"
       >
-      <Typography variant="h2" component="div">
-        Workouts
-      </Typography>
+        <Typography variant="h2" component="div">
+          Workouts
+        </Typography>
         {workouts.map((workout) => (
           <div key={workout.id}>
             <WorkoutCard
