@@ -18,7 +18,7 @@ const Footer = () => {
     <AppBar
       position="static"
       color="primary"
-      sx={{ top: "auto", bottom: 0, p: 1, pl: 2, pr: 2, mt: 2 }}
+      sx={{ top: "auto", bottom: 0, p: 1, pl: 2, pr: 2, mt: "auto" }}
     >
       <Stack direction="row" justifyContent="space-between" alignItems="center">
         <Typography
