@@ -3,6 +3,7 @@ import WorkoutCard from "./WorkoutCard";
 import Divider from "@mui/material/Divider";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button"
 import { useGetWorkoutsQuery } from "../../api/apiSlice";
 
 const Workouts = () => {
@@ -26,6 +27,7 @@ const Workouts = () => {
         <Typography variant="h2" component="div">
           Workouts
         </Typography>
+        <Button>Start Workout</Button>
         {workouts.map((workout) => (
           <div key={workout.id}>
             <WorkoutCard
