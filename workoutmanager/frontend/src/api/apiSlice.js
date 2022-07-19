@@ -29,6 +29,20 @@ export const apiSlice = createApi({
             }),
             providesTags: ['Workout']
         }),
+        getExerciseTypes: builder.query({
+            query: () => ({
+                url: 'api/exercisetypes/',
+                method: 'GET',
+            }),
+            providesTags: ['ExerciseTypes']
+        }),
+        getExerciseCategories: builder.query({
+            query: () => ({
+                url: 'api/exercisecategories/',
+                method: 'GET',
+            }),
+            providesTags: ['ExerciseCategories']
+        }),
         login: builder.mutation({
             query: credentials => ({
                 url: `accounts/auth/login/`,
@@ -71,6 +85,8 @@ export const apiSlice = createApi({
 
 export const {
     useGetWorkoutsQuery,
+    useGetExerciseTypesQuery,
+    useGetExerciseCategoriesQuery,
     useLoginMutation,
     useRegisterMutation,
     useLogoutMutation,
