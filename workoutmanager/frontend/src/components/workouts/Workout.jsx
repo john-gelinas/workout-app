@@ -1,8 +1,9 @@
 import React from "react";
 import { Button, Stack } from "@mui/material";
-import SetForm from "./SetForm";
+import { useParams } from "react-router-dom";
 
 const Workout = () => {
+  let { workoutId } = useParams();
   return (
     <Stack
       mt={2}

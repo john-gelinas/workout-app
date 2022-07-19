@@ -38,7 +38,7 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Workouts />}></Route>
             <Route path="/workout">
-              <Route path=":id" element={<Workout />}></Route>
+              <Route path=":workoutId" element={<Workout />}></Route>
             </Route>
             <Route
               path="*"
