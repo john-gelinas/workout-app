@@ -5,8 +5,10 @@ import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button"
 import { useGetWorkoutsQuery } from "../../api/apiSlice";
+import { useNavigate } from "react-router-dom";
 
 const Workouts = () => {
+  let navigate = useNavigate();
   const {
     data: workouts = [],
     isFetching,
@@ -29,7 +31,7 @@ const Workouts = () => {
         </Typography>
         <Button>Start Workout</Button>
         {workouts.map((workout) => (
-          <div key={workout.id}>
+          <div onClick={(() => navigate(`workout/${workout.id}`))} key={workout.id}>
             <WorkoutCard
               name={workout.name}
               date={workout.date}

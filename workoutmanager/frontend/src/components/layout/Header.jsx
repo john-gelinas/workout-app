@@ -15,7 +15,11 @@ import MenuItem from "@mui/material/MenuItem";
 import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
 import { useNavigate } from "react-router-dom";
 
-const pages = ["Workouts", "Personal Records", "About"];
+const pages = [
+  { page: "Workouts", link: "/" },
+  { page: "Personal Records", link: "/" },
+  { page: "About", link: "/" },
+];
 const settings = ["Profile", "Workouts", "Logout"];
 
 const ResponsiveAppBar = () => {
@@ -57,7 +61,7 @@ const ResponsiveAppBar = () => {
             variant="h6"
             noWrap
             component="a"
-            href="/"
+            onClick={() => navigate("/")}
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
@@ -66,6 +70,7 @@ const ResponsiveAppBar = () => {
               letterSpacing: ".1rem",
               color: "inherit",
               textDecoration: "none",
+              cursor: "pointer",
             }}
           >
             {title}
@@ -100,8 +105,13 @@ const ResponsiveAppBar = () => {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                <MenuItem key={page.page} onClick={handleCloseNavMenu}>
+                  <Typography
+                    textAlign="center"
+                    onClick={() => navigate(page.link)}
+                  >
+                    {page.page}
+                  </Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -136,11 +146,11 @@ const ResponsiveAppBar = () => {
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
               <Button
-                key={page}
-                onClick={handleCloseNavMenu}
+                key={page.page}
+                onClick={() => navigate(page.link)}
                 sx={{ my: 2, color: "white", display: "block" }}
               >
-                {page}
+                {page.page}
               </Button>
             ))}
           </Box>
