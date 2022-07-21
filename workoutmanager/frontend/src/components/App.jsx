@@ -10,7 +10,7 @@ import { Paper, Box } from "@mui/material";
 
 const App = () => {
   const currentMode = useSelector((state) => state.theme.mode);
-  let mode = "dark";
+  let mode = "light";
   const theme = createTheme({
     palette: {
       mode: currentMode,
