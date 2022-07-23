@@ -29,6 +29,13 @@ export const apiSlice = createApi({
             }),
             providesTags: ['Workout']
         }),
+        getExercises: builder.query({
+            query: () => ({
+                url: 'api/exercises/',
+                method: 'GET',
+            }),
+            providesTags: ['Exercises']
+        }),
         getExerciseTypes: builder.query({
             query: () => ({
                 url: 'api/exercisetypes/',
@@ -85,6 +92,7 @@ export const apiSlice = createApi({
 
 export const {
     useGetWorkoutsQuery,
+    useGetExercisesQuery,
     useGetExerciseTypesQuery,
     useGetExerciseCategoriesQuery,
     useLoginMutation,

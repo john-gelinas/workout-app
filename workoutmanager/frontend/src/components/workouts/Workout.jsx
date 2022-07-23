@@ -2,13 +2,24 @@ import React, { useState } from "react";
 import { Button, Stack } from "@mui/material";
 import ExerciseList from "./ExerciseList";
 import { useParams } from "react-router-dom";
+import { useGetExercisesQuery } from "../../api/apiSlice";
 
 const Workout = () => {
   const [selectExerciseOpen, setSelectExerciseOpen] = useState(false);
   let { workoutId } = useParams();
-  // fetch exercises
-
-  // get list of exercises in workout
+  // fetch exercises for given workout
+  const {
+    data: exercises = [],
+    isFetching,
+    isLoading,
+    isSuccess,
+    isError,
+    error,
+  } = useGetExercisesQuery(undefined, {
+    selectFromResult: ({ data }) => ({
+      data: data?.filter((exercise) => exercise.workout == workoutId),
+    }),
+  });
 
   // create exercise group
   // card
