@@ -20,12 +20,36 @@ const Workout = () => {
       data: data?.filter((exercise) => exercise.workout == workoutId),
     }),
   });
+  const {
+    data: exerciseTypes = [],
+    typesIsFetching,
+    typesIsLoading,
+    typesIsSuccess,
+    typesIsError,
+    typesError,
+  } = useGetExerciseTypesQuery();
+  const {
+    data: exerciseCategories = [],
+    categoriesIsFetching,
+    categoriesIsLoading,
+    categoriesIsSuccess,
+    categoriesIsError,
+    categoriesError,
+  } = useGetExerciseCategoriesQuery();
+  // search to get category of given exercise type
+  exerciseCategories.find(
+    (category) => category.id === exerciseType.category
+  ).name
+
+  console.log(workoutId)
+  console.log(exercises)
 
   // create exercise group
-  // card
-  // setform
-
-  // create set for given exercise
+  // create set group for each exercise
+    // card
+  // if new set(s) exist, add form for new set(s) in correct exercise group
+    // setform
+  // useselector for new set state
 
   const onAddExercise = (exercise) => {
     // close exercise list after a quick delay
