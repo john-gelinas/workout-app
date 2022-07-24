@@ -1,8 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { Button, Stack } from "@mui/material";
 import ExerciseList from "./ExerciseList";
 import { useParams } from "react-router-dom";
-import { useGetExercisesQuery } from "../../api/apiSlice";
+import {
+  useGetExercisesQuery,
+  useGetExerciseTypesQuery,
+  useGetExerciseCategoriesQuery,
+} from "../../api/apiSlice";
 
 const Workout = () => {
   const [selectExerciseOpen, setSelectExerciseOpen] = useState(false);
@@ -36,19 +40,32 @@ const Workout = () => {
     categoriesIsError,
     categoriesError,
   } = useGetExerciseCategoriesQuery();
-  // search to get category of given exercise type
-  exerciseCategories.find(
-    (category) => category.id === exerciseType.category
-  ).name
 
-  console.log(workoutId)
-  console.log(exercises)
 
-  // create exercise group
+  console.log(workoutId);
+  console.log(exercises);
+  console.log(exerciseList);
+
+  const exerciseList = useMemo(() => {
+    const exerciseList = exercises.forEach((exercise) => {
+      type = exerciseTypes.find((type) => type.id === exercise.exercisetype);
+      category = exerciseCategories.find(
+        (category) => category.id === type.category
+      );
+      return {
+        type: `${exercise.name} (${category.name})`,
+        reps: [exercise.reps],
+        weight: [exercise.weight],
+      };
+    });
+    return exerciseList;
+  }, [exercises]);
+  // create exercise groups
+
   // create set group for each exercise
-    // card
+  // card
   // if new set(s) exist, add form for new set(s) in correct exercise group
-    // setform
+  // setform
   // useselector for new set state
 
   const onAddExercise = (exercise) => {
