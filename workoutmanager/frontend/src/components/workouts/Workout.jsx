@@ -41,17 +41,21 @@ const Workout = () => {
     categoriesError,
   } = useGetExerciseCategoriesQuery();
 
-
   console.log(workoutId);
   console.log(exercises);
   console.log(exerciseList);
 
   const exerciseList = useMemo(() => {
     const exerciseList = exercises.forEach((exercise) => {
-      type = exerciseTypes.find((type) => type.id === exercise.exercisetype);
-      category = exerciseCategories.find(
-        (category) => category.id === type.category
+      console.log("exercise", exercise);
+      const type = exerciseTypes.find(
+        (type) => type.id == exercise.exercisetype
       );
+      console.log("type", type);
+      const category = exerciseCategories.find(
+        (category) => category.id == type.category
+      );
+      console.log("category", category);
       return {
         type: `${exercise.name} (${category.name})`,
         reps: [exercise.reps],
@@ -59,7 +63,7 @@ const Workout = () => {
       };
     });
     return exerciseList;
-  }, [exercises]);
+  }, [exerciseCategories]);
   // create exercise groups
 
   // create set group for each exercise
