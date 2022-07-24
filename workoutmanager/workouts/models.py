@@ -22,7 +22,7 @@ class ExerciseCategory(models.Model):
         return self.name
 
 class ExerciseType(models.Model):
-    name = models.CharField(max_length=100, unique=True)
+    name = models.CharField(max_length=100, unique=False)
     reps = models.BooleanField(default=False)
     weights = models.BooleanField(default=False)
     duration = models.BooleanField(default=False)
@@ -32,6 +32,8 @@ class ExerciseType(models.Model):
     image = models.URLField(blank=True)
     def __str__(self):
         return self.name + " (" + self.category.name + ")"
+    class Meta:
+        unique_together = ['name', 'category']
 
 class Exercise(models.Model):
     exercisetype = models.ForeignKey(ExerciseType, related_name='exercise', null=True, on_delete=models.SET_NULL)
