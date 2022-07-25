@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { Button, Stack } from "@mui/material";
 import ExerciseList from "./ExerciseList";
 import { useParams } from "react-router-dom";
@@ -23,7 +23,9 @@ const Workout = () => {
   } = useGetExercisesQuery(undefined, {
     selectFromResult: (result) => ({
       ...result,
-      selectedData: result.data?.filter((exercise) => exercise.workout == workoutId),
+      selectedData: result.data?.filter(
+        (exercise) => exercise.workout == workoutId
+      ),
     }),
   });
   const {
@@ -43,27 +45,15 @@ const Workout = () => {
     error: categoriesError,
   } = useGetExerciseCategoriesQuery();
 
-  // console.log("workoutid", workoutId);
-  // console.log("exercises", exercises);
-  // console.log("exerciseList", exerciseList);
-
   useEffect(() => {
     const exList = exercises.map((exercise) => {
-      console.log("effect run");
-      console.log("exercise", exercise);
       let category, exType;
       if (typesIsSuccess) {
-        console.log("types", exerciseTypes);
-        console.log("type", exercise.exercisetype);
-
-        // console.log("id", exType.id);
         exType = exerciseTypes.find(
           (eachType) => eachType.id == exercise.exercisetype
         );
-        console.log("extype", exType);
       }
       if (categoriesIsSuccess && typesIsSuccess) {
-        console.log("category", category);
         const category = exerciseCategories.find(
           (category) => category.id == exType.category
         );
@@ -78,10 +68,21 @@ const Workout = () => {
     setExerciseList(exList);
   }, [exercisesIsSuccess && categoriesIsSuccess && typesIsSuccess]);
   // create exercise groups
-  
+
+  // debug useeffect
   useEffect(() => {
-    console.log("list", exerciseList)
-  }, [exerciseList])
+    console.log("list", exerciseList);
+  }, [exerciseList]);
+
+  // sort exercises by type and chorologically - only computing when exercises update via useMemo
+  const sortedExercises = useMemo(() => {
+    const sortedExercises = exerciseList.slice();
+    sortedExercises.sort((a, b) => {
+      return a.date.localeCompare(b.date);
+    });
+    console.log(sortedExercises);
+    return sortedExercises;
+  }, [exerciseList]);
   // create set group for each exercise
   // card
   // if new set(s) exist, add form for new set(s) in correct exercise group
