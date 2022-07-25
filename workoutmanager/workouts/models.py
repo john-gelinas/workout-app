@@ -37,6 +37,7 @@ class ExerciseType(models.Model):
 
 class Exercise(models.Model):
     exercisetype = models.ForeignKey(ExerciseType, related_name='exercise', null=True, on_delete=models.SET_NULL)
+    date = models.DateTimeField()
     reps = models.IntegerField(blank=True, null=True)
     weight = models.DecimalField(decimal_places=1, max_digits=7, blank=True, null=True)
     duration = models.DurationField(blank=True, null=True)
