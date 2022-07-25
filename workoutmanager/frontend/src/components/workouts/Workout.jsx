@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Stack } from "@mui/material";
 import ExerciseList from "./ExerciseList";
 import { useParams } from "react-router-dom";
@@ -10,62 +10,78 @@ import {
 
 const Workout = () => {
   const [selectExerciseOpen, setSelectExerciseOpen] = useState(false);
+  const [exerciseList, setExerciseList] = useState([]);
   let { workoutId } = useParams();
   // fetch exercises for given workout
   const {
-    data: exercises = [],
-    isFetching,
-    isLoading,
-    isSuccess,
-    isError,
-    error,
+    selectedData: exercises = [],
+    isFetching: exercisesIsFetching,
+    isLoading: exercisesIsLoading,
+    isSuccess: exercisesIsSuccess,
+    isError: exercisesIsError,
+    error: exercisesError,
   } = useGetExercisesQuery(undefined, {
-    selectFromResult: ({ data }) => ({
-      data: data?.filter((exercise) => exercise.workout == workoutId),
+    selectFromResult: (result) => ({
+      ...result,
+      selectedData: result.data?.filter((exercise) => exercise.workout == workoutId),
     }),
   });
   const {
     data: exerciseTypes = [],
-    typesIsFetching,
-    typesIsLoading,
-    typesIsSuccess,
-    typesIsError,
-    typesError,
+    isFetching: typesIsFetching,
+    isLoading: typesIsLoading,
+    isSuccess: typesIsSuccess,
+    isError: typesIsError,
+    error: typesError,
   } = useGetExerciseTypesQuery();
   const {
     data: exerciseCategories = [],
-    categoriesIsFetching,
-    categoriesIsLoading,
-    categoriesIsSuccess,
-    categoriesIsError,
-    categoriesError,
+    isFetching: categoriesIsFetching,
+    isLoading: categoriesIsLoading,
+    isSuccess: categoriesIsSuccess,
+    isError: categoriesIsError,
+    error: categoriesError,
   } = useGetExerciseCategoriesQuery();
 
-  console.log(workoutId);
-  console.log(exercises);
-  console.log(exerciseList);
+  // console.log("workoutid", workoutId);
+  // console.log("exercises", exercises);
+  // console.log("exerciseList", exerciseList);
 
-  const exerciseList = useMemo(() => {
-    const exerciseList = exercises.forEach((exercise) => {
+  useEffect(() => {
+    const exList = exercises.map((exercise) => {
+      console.log("effect run");
       console.log("exercise", exercise);
-      const type = exerciseTypes.find(
-        (type) => type.id == exercise.exercisetype
-      );
-      console.log("type", type);
-      const category = exerciseCategories.find(
-        (category) => category.id == type.category
-      );
-      console.log("category", category);
-      return {
-        type: `${exercise.name} (${category.name})`,
-        reps: [exercise.reps],
-        weight: [exercise.weight],
-      };
-    });
-    return exerciseList;
-  }, [exerciseCategories]);
-  // create exercise groups
+      let category, exType;
+      if (typesIsSuccess) {
+        console.log("types", exerciseTypes);
+        console.log("type", exercise.exercisetype);
 
+        // console.log("id", exType.id);
+        exType = exerciseTypes.find(
+          (eachType) => eachType.id == exercise.exercisetype
+        );
+        console.log("extype", exType);
+      }
+      if (categoriesIsSuccess && typesIsSuccess) {
+        console.log("category", category);
+        const category = exerciseCategories.find(
+          (category) => category.id == exType.category
+        );
+        return {
+          type: `${exType.name} (${category.name})`,
+          reps: exercise.reps,
+          weight: exercise.weight,
+          time: exercise.date,
+        };
+      }
+    });
+    setExerciseList(exList);
+  }, [exercisesIsSuccess && categoriesIsSuccess && typesIsSuccess]);
+  // create exercise groups
+  
+  useEffect(() => {
+    console.log("list", exerciseList)
+  }, [exerciseList])
   // create set group for each exercise
   // card
   // if new set(s) exist, add form for new set(s) in correct exercise group
