@@ -1,9 +1,15 @@
-import React from 'react'
+import React from "react";
 
-const WorkoutExercise = () => {
+const WorkoutExercise = ({ exercise }) => {
+  console.log(exercise);
   return (
-    <div>WorkoutExercise</div>
-  )
-}
+    <>
+      <div>{exercise.type}</div>
+      <div>{exercise.date}</div>
+      <div>{exercise.reps}</div>
+      <div>{exercise.weight}</div>
+    </>
+  );
+};
 
-export default WorkoutExercise
+export default WorkoutExercise;

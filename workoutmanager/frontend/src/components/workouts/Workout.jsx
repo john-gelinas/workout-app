@@ -2,6 +2,8 @@ import React, { useState, useEffect, useMemo } from "react";
 import { Button, Stack } from "@mui/material";
 import ExerciseList from "./ExerciseList";
 import { useParams } from "react-router-dom";
+import ThreeDotSpinner from "../layout/ThreeDotSpinner";
+import WorkoutExercise from "./WorkoutExercise";
 import {
   useGetExercisesQuery,
   useGetExerciseTypesQuery,
@@ -11,6 +13,9 @@ import {
 const Workout = () => {
   const [selectExerciseOpen, setSelectExerciseOpen] = useState(false);
   const [exerciseList, setExerciseList] = useState([]);
+  const [workoutList, setWorkoutList] = useState([]);
+  const [loader, setLoader] = useState([]);
+  const [empty, setEmpty] = useState([]);
   let { workoutId } = useParams();
   // fetch exercises for given workout
   const {
@@ -62,13 +67,32 @@ const Workout = () => {
           reps: exercise.reps,
           weight: exercise.weight,
           time: exercise.date,
+          id: exercise.id
         };
       }
     });
     setExerciseList(exList);
   }, [exercisesIsSuccess && categoriesIsSuccess && typesIsSuccess]);
+  
   // create exercise groups
+  useEffect(() => {
+    if (exercisesIsLoading) {
+      setLoader(<ThreeDotSpinner />);
+    } else if (exercisesIsSuccess) {
+      setWorkoutList(exerciseList.map((ex) => <WorkoutExercise key={ex.id} exercise={ex} />));
+      setLoader("");
+      setEmpty("");
+      if (!exerciseList) {
+        setEmpty("No No Exercises");
+      } else {
+        setEmpty("");
+      }
+    } else if (exercisesIsError) {
 
+      setLoader("");
+      setEmpty("");
+    }
+  }, [exerciseList]);
   // debug useeffect
   useEffect(() => {
     console.log("list", exerciseList);
@@ -107,7 +131,10 @@ const Workout = () => {
       >
         Add Exercise
       </Button>
+      {loader}
       {/* workout exercise components */}
+      {workoutList}
+      {empty}
       <ExerciseList
         selectExerciseOpen={selectExerciseOpen}
         onClickAway={onClickAway}
