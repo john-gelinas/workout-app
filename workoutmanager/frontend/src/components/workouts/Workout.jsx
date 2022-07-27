@@ -4,15 +4,10 @@ import ExerciseList from "./ExerciseList";
 import { useParams } from "react-router-dom";
 import ThreeDotSpinner from "../layout/ThreeDotSpinner";
 import WorkoutExercise from "./WorkoutExercise";
-import {
-  useGetExercisesQuery,
-  useGetExerciseTypesQuery,
-  useGetExerciseCategoriesQuery,
-} from "../../api/apiSlice";
+import { useGetExercisesQuery } from "../../api/apiSlice";
 
 const Workout = () => {
   const [selectExerciseOpen, setSelectExerciseOpen] = useState(false);
-  const [exerciseList, setExerciseList] = useState([]);
   const [workoutList, setWorkoutList] = useState([]);
   const [loader, setLoader] = useState([]);
   const [empty, setEmpty] = useState([]);
@@ -33,80 +28,54 @@ const Workout = () => {
       ),
     }),
   });
-  const {
-    data: exerciseTypes = [],
-    isFetching: typesIsFetching,
-    isLoading: typesIsLoading,
-    isSuccess: typesIsSuccess,
-    isError: typesIsError,
-    error: typesError,
-  } = useGetExerciseTypesQuery();
-  const {
-    data: exerciseCategories = [],
-    isFetching: categoriesIsFetching,
-    isLoading: categoriesIsLoading,
-    isSuccess: categoriesIsSuccess,
-    isError: categoriesIsError,
-    error: categoriesError,
-  } = useGetExerciseCategoriesQuery();
+
+  // sort exercises then group them based on exercise type
+  const groupedExercises = useMemo(() => {
+    if (exercises !== []) {
+      const sortedExercises = exercises.slice();
+      sortedExercises.sort((a, b) => {
+        return Date.parse(b.date) - Date.parse(a.date);
+      });
+      const grouped = sortedExercises.reduce((group, exercise) => {
+        const full_type = `${exercise.type} (${exercise.category_name})`;
+        // add new group for exercise type if it is not in the object yet
+        if (!group[full_type]) {
+          group[full_type] = []
+        }
+        group[full_type].push(exercise);
+        return group;
+      }, {});
+      console.log(grouped);
+      //   ({ type, category_name }) => `${type} (${category_name})`
+      // );
+      return grouped;
+    }
+  }, [exercisesIsFetching]);
 
   useEffect(() => {
-    const exList = exercises.map((exercise) => {
-      let category, exType;
-      if (typesIsSuccess) {
-        exType = exerciseTypes.find(
-          (eachType) => eachType.id == exercise.exercisetype
-        );
-      }
-      if (categoriesIsSuccess && typesIsSuccess) {
-        const category = exerciseCategories.find(
-          (category) => category.id == exType.category
-        );
-        return {
-          type: `${exType.name} (${category.name})`,
-          reps: exercise.reps,
-          weight: exercise.weight,
-          time: exercise.date,
-          id: exercise.id
-        };
-      }
-    });
-    setExerciseList(exList);
-  }, [exercisesIsSuccess && categoriesIsSuccess && typesIsSuccess]);
-  
-  // create exercise groups
-  useEffect(() => {
-    if (exercisesIsLoading) {
+    if (exercisesIsFetching) {
       setLoader(<ThreeDotSpinner />);
     } else if (exercisesIsSuccess) {
-      setWorkoutList(exerciseList.map((ex) => <WorkoutExercise key={ex.id} exercise={ex} />));
+      for (const exerciseType in groupedExercises) {
+        console.log(workoutList);
+        setWorkoutList(workoutList.push(exerciseType));
+      }
+      // setWorkoutList(
+      //   exerciseList.map((ex) => <WorkoutExercise key={ex.id} exercise={ex} />)
+      // );
       setLoader("");
       setEmpty("");
-      if (!exerciseList) {
-        setEmpty("No No Exercises");
+      if (!exercises) {
+        setEmpty("No Exercises");
       } else {
         setEmpty("");
       }
     } else if (exercisesIsError) {
-
       setLoader("");
       setEmpty("");
     }
-  }, [exerciseList]);
-  // debug useeffect
-  useEffect(() => {
-    console.log("list", exerciseList);
-  }, [exerciseList]);
+  }, [groupedExercises]);
 
-  // sort exercises by type and chorologically - only computing when exercises update via useMemo
-  const sortedExercises = useMemo(() => {
-    const sortedExercises = exerciseList.slice();
-    sortedExercises.sort((a, b) => {
-      return a.date.localeCompare(b.date);
-    });
-    console.log(sortedExercises);
-    return sortedExercises;
-  }, [exerciseList]);
   // create set group for each exercise
   // card
   // if new set(s) exist, add form for new set(s) in correct exercise group
