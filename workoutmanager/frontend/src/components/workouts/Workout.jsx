@@ -3,7 +3,8 @@ import { Button, Stack } from "@mui/material";
 import ExerciseList from "./ExerciseList";
 import { useParams } from "react-router-dom";
 import ThreeDotSpinner from "../layout/ThreeDotSpinner";
-import WorkoutExercise from "./WorkoutExercise";
+import WorkoutExerciseHeader from "./WorkoutExerciseHeader";
+import WorkoutExerciseSet from "./WorkoutExerciseSet";
 import { useGetExercisesQuery } from "../../api/apiSlice";
 
 const Workout = () => {
@@ -40,14 +41,12 @@ const Workout = () => {
         const full_type = `${exercise.type} (${exercise.category_name})`;
         // add new group for exercise type if it is not in the object yet
         if (!group[full_type]) {
-          group[full_type] = []
+          group[full_type] = [];
         }
         group[full_type].push(exercise);
         return group;
       }, {});
       console.log(grouped);
-      //   ({ type, category_name }) => `${type} (${category_name})`
-      // );
       return grouped;
     }
   }, [exercisesIsFetching]);
@@ -56,13 +55,29 @@ const Workout = () => {
     if (exercisesIsFetching) {
       setLoader(<ThreeDotSpinner />);
     } else if (exercisesIsSuccess) {
+      // console.log(groupedExercises);
       for (const exerciseType in groupedExercises) {
-        console.log(workoutList);
+        // console.log(groupedExercises[exerciseType]);
         setWorkoutList(workoutList.push(exerciseType));
+        for (const exerciseSet in groupedExercises[exerciseType]) {
+          console.log(groupedExercises[exerciseType][exerciseSet]);
+          setWorkoutList(
+            workoutList.push(groupedExercises[exerciseType][exerciseSet])
+          );
+        }
+        console.log("workoutList", workoutList);
+        console.log("grouped exercises", groupedExercises);
       }
-      // setWorkoutList(
-      //   exerciseList.map((ex) => <WorkoutExercise key={ex.id} exercise={ex} />)
-      // );
+      setWorkoutList(
+        workoutList.map((item) => {
+          console.log(item)
+          return !item.id ? (
+            <WorkoutExerciseHeader key={item} exerciseType={item} />
+          ) : (
+            <WorkoutExerciseSet key={item.id} exercise={item} />
+          );
+        })
+      );
       setLoader("");
       setEmpty("");
       if (!exercises) {
@@ -74,8 +89,8 @@ const Workout = () => {
       setLoader("");
       setEmpty("");
     }
-  }, [groupedExercises]);
-
+  }, [groupedExercises, exercisesIsFetching, exercisesIsSuccess]);
+  console.log(workoutList)
   // create set group for each exercise
   // card
   // if new set(s) exist, add form for new set(s) in correct exercise group

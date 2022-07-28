@@ -1,12 +1,12 @@
 import React from "react";
 import SetForm from "./SetForm";
 
-
-const WorkoutExerciseSet = () => {
+const WorkoutExerciseSet = ({ exercise }) => {
   return (
     <div>
-      <SetForm exercise={"exercise"} />
-      <div>WorkoutExerciseSet</div>
+      <div>{exercise.reps}</div>
+      <div>{exercise.weight}</div>
+      <hr />
     </div>
   );
 };
