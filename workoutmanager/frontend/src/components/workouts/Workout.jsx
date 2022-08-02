@@ -11,6 +11,7 @@ const Workout = () => {
   const [selectExerciseOpen, setSelectExerciseOpen] = useState(false);
   const [loader, setLoader] = useState([]);
   const [empty, setEmpty] = useState([]);
+  const [displayExercises, setDisplayExercises] = useState([]);
   let { workoutId } = useParams();
   let exerciseList;
   // fetch exercises for given workout
@@ -73,10 +74,9 @@ const createExerciseCard = (exerciseType, exerciseSets) => {
       for (const exerciseType in groupedExercises) {
         // create set group for each exercise as a card
         let exerciseCard = createExerciseCard(exerciseType, groupedExercises[exerciseType])
-        console.log("exerciseCard", exerciseCard)
         exerciseList ? exerciseList.push(exerciseCard) : exerciseList = [exerciseCard]
-        console.log("exerciseList", exerciseList)
       }
+      setDisplayExercises(exerciseList)
       setLoader("");
       setEmpty("");
       if (!exercises) {
@@ -89,15 +89,6 @@ const createExerciseCard = (exerciseType, exerciseSets) => {
       setEmpty("");
     }
   }, [groupedExercises, exercisesIsFetching, exercisesIsSuccess]);
-
-  // console log useffects
-  useEffect(() => {
-    console.log("exerciseList", exerciseList);
-  }, [exerciseList]);
-  useEffect(() => {
-    console.log("grouped exercises", groupedExercises);
-  }, [groupedExercises]);
-  // useselector for new set state
 
   const onAddExercise = (exercise) => {
     // close exercise list after a quick delay
@@ -119,7 +110,7 @@ const createExerciseCard = (exerciseType, exerciseSets) => {
       </Button>
       {loader}
       {/* workout exercise components */}
-      {exerciseList}
+      {displayExercises}
       {empty}
       <ExerciseTypeList
         selectExerciseOpen={selectExerciseOpen}
