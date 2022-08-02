@@ -14,7 +14,7 @@ import {
   useGetExerciseCategoriesQuery,
 } from "../../api/apiSlice";
 
-const ExerciseList = ({ selectExerciseOpen, onAddExercise, onClickAway }) => {
+const ExerciseTypeList = ({ selectExerciseOpen, onAddExercise, onClickAway }) => {
   const {
     data: exerciseTypes = [],
     typesIsFetching,
@@ -68,4 +68,4 @@ const ExerciseList = ({ selectExerciseOpen, onAddExercise, onClickAway }) => {
   ) : null;
 };
 
-export default ExerciseList;
+export default ExerciseTypeList;

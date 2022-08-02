@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { Button, Stack } from "@mui/material";
-import ExerciseList from "./ExerciseList";
+import ExerciseTypeList from "./ExerciseTypeList";
 import { useParams } from "react-router-dom";
 import ThreeDotSpinner from "../layout/ThreeDotSpinner";
 import WorkoutExerciseHeader from "./WorkoutExerciseHeader";
@@ -119,7 +119,7 @@ const Workout = () => {
       {/* workout exercise components */}
       {workoutList}
       {empty}
-      <ExerciseList
+      <ExerciseTypeList
         selectExerciseOpen={selectExerciseOpen}
         onClickAway={onClickAway}
         onAddExercise={onAddExercise}
