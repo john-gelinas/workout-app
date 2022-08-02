@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, Fragment } from "react";
 import { Button, Stack } from "@mui/material";
 import ExerciseTypeList from "./ExerciseTypeList";
 import { useParams } from "react-router-dom";
@@ -9,10 +9,10 @@ import { useGetExercisesQuery } from "../../api/apiSlice";
 
 const Workout = () => {
   const [selectExerciseOpen, setSelectExerciseOpen] = useState(false);
-  const [workoutList, setWorkoutList] = useState([]);
   const [loader, setLoader] = useState([]);
   const [empty, setEmpty] = useState([]);
   let { workoutId } = useParams();
+  let exerciseList;
   // fetch exercises for given workout
   const {
     selectedData: exercises = [],
@@ -33,10 +33,12 @@ const Workout = () => {
   // sort exercises then group them based on exercise type
   const groupedExercises = useMemo(() => {
     if (exercises !== []) {
+      // sort exercises, newest first
       const sortedExercises = exercises.slice();
       sortedExercises.sort((a, b) => {
         return Date.parse(b.date) - Date.parse(a.date);
       });
+      // group exercises by exercise type
       const grouped = sortedExercises.reduce((group, exercise) => {
         const full_type = `${exercise.type} (${exercise.category_name})`;
         // add new group for exercise type if it is not in the object yet
@@ -46,38 +48,35 @@ const Workout = () => {
         group[full_type].push(exercise);
         return group;
       }, {});
-      console.log(grouped);
       return grouped;
     }
   }, [exercisesIsFetching]);
+
+// function to create MUI card for each exercise type and populate with the sets of that exercise type for the workout
+const createExerciseCard = (exerciseType, exerciseSets) => {
+  const sets = exerciseSets.map((set) => {
+    return(
+      <Fragment key={set.id}>
+      <p>{set.reps}</p> 
+      <p>{set.weight}</p> </Fragment>
+    )})
+    return (<div key={exerciseType}>
+    <h1>{exerciseType}</h1>
+    {sets}
+  </div>)
+}
 
   useEffect(() => {
     if (exercisesIsFetching) {
       setLoader(<ThreeDotSpinner />);
     } else if (exercisesIsSuccess) {
-      // console.log(groupedExercises);
       for (const exerciseType in groupedExercises) {
-        // console.log(groupedExercises[exerciseType]);
-        setWorkoutList(workoutList.push(exerciseType));
-        for (const exerciseSet in groupedExercises[exerciseType]) {
-          console.log(groupedExercises[exerciseType][exerciseSet]);
-          setWorkoutList(
-            workoutList.push(groupedExercises[exerciseType][exerciseSet])
-          );
-        }
-        console.log("workoutList", workoutList);
-        console.log("grouped exercises", groupedExercises);
+        // create set group for each exercise as a card
+        let exerciseCard = createExerciseCard(exerciseType, groupedExercises[exerciseType])
+        console.log("exerciseCard", exerciseCard)
+        exerciseList ? exerciseList.push(exerciseCard) : exerciseList = [exerciseCard]
+        console.log("exerciseList", exerciseList)
       }
-      setWorkoutList(
-        workoutList.map((item) => {
-          console.log(item)
-          return !item.id ? (
-            <WorkoutExerciseHeader key={item} exerciseType={item} />
-          ) : (
-            <WorkoutExerciseSet key={item.id} exercise={item} />
-          );
-        })
-      );
       setLoader("");
       setEmpty("");
       if (!exercises) {
@@ -90,11 +89,14 @@ const Workout = () => {
       setEmpty("");
     }
   }, [groupedExercises, exercisesIsFetching, exercisesIsSuccess]);
-  console.log(workoutList)
-  // create set group for each exercise
-  // card
-  // if new set(s) exist, add form for new set(s) in correct exercise group
-  // setform
+
+  // console log useffects
+  useEffect(() => {
+    console.log("exerciseList", exerciseList);
+  }, [exerciseList]);
+  useEffect(() => {
+    console.log("grouped exercises", groupedExercises);
+  }, [groupedExercises]);
   // useselector for new set state
 
   const onAddExercise = (exercise) => {
@@ -117,7 +119,7 @@ const Workout = () => {
       </Button>
       {loader}
       {/* workout exercise components */}
-      {workoutList}
+      {exerciseList}
       {empty}
       <ExerciseTypeList
         selectExerciseOpen={selectExerciseOpen}
