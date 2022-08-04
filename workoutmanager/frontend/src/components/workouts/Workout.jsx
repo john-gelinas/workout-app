@@ -3,9 +3,10 @@ import { Button, Stack } from "@mui/material";
 import ExerciseTypeList from "./ExerciseTypeList";
 import { useParams } from "react-router-dom";
 import ThreeDotSpinner from "../layout/ThreeDotSpinner";
-import WorkoutExerciseHeader from "./WorkoutExerciseHeader";
+import WorkoutExerciseHeader from "./WorkoutExerciseCard";
 import WorkoutExerciseSet from "./WorkoutExerciseSet";
 import { useGetExercisesQuery } from "../../api/apiSlice";
+import WorkoutExerciseCard from "./WorkoutExerciseCard";
 
 const Workout = () => {
   const [selectExerciseOpen, setSelectExerciseOpen] = useState(false);
@@ -53,30 +54,23 @@ const Workout = () => {
     }
   }, [exercisesIsFetching]);
 
-// function to create MUI card for each exercise type and populate with the sets of that exercise type for the workout
-const createExerciseCard = (exerciseType, exerciseSets) => {
-  const sets = exerciseSets.map((set) => {
-    return(
-      <Fragment key={set.id}>
-      <p>{set.reps}</p> 
-      <p>{set.weight}</p> </Fragment>
-    )})
-    return (<div key={exerciseType}>
-    <h1>{exerciseType}</h1>
-    {sets}
-  </div>)
-}
-
   useEffect(() => {
     if (exercisesIsFetching) {
       setLoader(<ThreeDotSpinner />);
     } else if (exercisesIsSuccess) {
       for (const exerciseType in groupedExercises) {
         // create set group for each exercise as a card
-        let exerciseCard = createExerciseCard(exerciseType, groupedExercises[exerciseType])
-        exerciseList ? exerciseList.push(exerciseCard) : exerciseList = [exerciseCard]
+        let exerciseCard = (
+          <WorkoutExerciseCard key={exerciseType}
+            exerciseType={exerciseType}
+            exerciseSets={groupedExercises[exerciseType]}
+          />
+        );
+        exerciseList
+          ? exerciseList.push(exerciseCard)
+          : (exerciseList = [exerciseCard]);
       }
-      setDisplayExercises(exerciseList)
+      setDisplayExercises(exerciseList);
       setLoader("");
       setEmpty("");
       if (!exercises) {
