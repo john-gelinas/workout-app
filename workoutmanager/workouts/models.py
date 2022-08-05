@@ -24,7 +24,7 @@ class ExerciseCategory(models.Model):
 class ExerciseType(models.Model):
     name = models.CharField(max_length=100, unique=False)
     reps = models.BooleanField(default=False)
-    weights = models.BooleanField(default=False)
+    weight = models.BooleanField(default=False)
     duration = models.BooleanField(default=False)
     distance = models.BooleanField(default=False)
     elevation = models.BooleanField(default=False)

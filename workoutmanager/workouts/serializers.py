@@ -37,8 +37,8 @@ class ExerciseSerializer(serializers.ModelSerializer):
         source='exercisetype.name', allow_null=True)
     type_reps = serializers.BooleanField(
         source='exercisetype.reps', allow_null=True)
-    type_weights = serializers.BooleanField(
-        source='exercisetype.weights', allow_null=True)
+    type_weight = serializers.BooleanField(
+        source='exercisetype.weight', allow_null=True)
     type_duration = serializers.BooleanField(
         source='exercisetype.duration', allow_null=True)
     type_distance = serializers.BooleanField(
