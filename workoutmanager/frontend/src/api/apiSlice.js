@@ -7,19 +7,19 @@ export const apiSlice = createApi({
     reducerPath: 'api',
     baseQuery: fetchBaseQuery({
         baseUrl: 'http://127.0.0.1:8000',
-        // prepareHeaders: (headers, {
-        //     getState
-        // }) => {
-        //     // prioritize token in state, otherwise set token to last stored token
-        //     const stateToken = getState().auth.token
-        //     const localToken = localStorage.getItem("token")
-        //     const token = (stateToken ? stateToken : localToken)
-        //     if (token) {
-        //         headers.set('Authorization', `Token ${token}`)
-        //     }
-        //     headers.set('Content-Type', 'application/json')
-        //     return headers
-        // }
+        prepareHeaders: (headers, {
+            getState
+        }) => {
+            // // prioritize token in state, otherwise set token to last stored token
+            // const stateToken = getState().auth.token
+            // const localToken = localStorage.getItem("token")
+            // const token = (stateToken ? stateToken : localToken)
+            // if (token) {
+            //     headers.set('Authorization', `Token ${token}`)
+            // }
+            headers.set('Content-Type', 'application/json')
+            return headers
+        }
     }),
     endpoints: (builder) => ({
         getWorkouts: builder.query({
@@ -49,6 +49,14 @@ export const apiSlice = createApi({
                 method: 'GET',
             }),
             providesTags: ['ExerciseCategories']
+        }),
+        addExercises: builder.mutation({
+            query: exercises => ({
+                url: 'api/exercises/',
+                method: "POST",
+                body: exercises
+            }),
+            invalidatesTags: ['Exercises']
         }),
         login: builder.mutation({
             query: credentials => ({
@@ -95,6 +103,7 @@ export const {
     useGetExercisesQuery,
     useGetExerciseTypesQuery,
     useGetExerciseCategoriesQuery,
+    useAddExercisesMutation,
     useLoginMutation,
     useRegisterMutation,
     useLogoutMutation,
