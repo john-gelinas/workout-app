@@ -32,21 +32,21 @@ class ExerciseCategorySerializer(serializers.ModelSerializer):
 
 class ExerciseSerializer(serializers.ModelSerializer):
     category_name = serializers.CharField(
-        source='exercisetype.category.name', allow_null=True)
+        source='exercisetype.category.name', allow_null=True, required=False)
     type = serializers.CharField(
-        source='exercisetype.name', allow_null=True)
+        source='exercisetype.name', allow_null=True, required=False)
     type_reps = serializers.BooleanField(
-        source='exercisetype.reps', allow_null=True)
+        source='exercisetype.reps', allow_null=True, required=False)
     type_weight = serializers.BooleanField(
-        source='exercisetype.weight', allow_null=True)
+        source='exercisetype.weight', allow_null=True, required=False)
     type_duration = serializers.BooleanField(
-        source='exercisetype.duration', allow_null=True)
+        source='exercisetype.duration', allow_null=True, required=False)
     type_distance = serializers.BooleanField(
-        source='exercisetype.distance', allow_null=True)
+        source='exercisetype.distance', allow_null=True, required=False)
     type_elevation = serializers.BooleanField(
-        source='exercisetype.elevation', allow_null=True)
+        source='exercisetype.elevation', allow_null=True, required=False)
     type_image = serializers.BooleanField(
-        source='exercisetype.image', allow_null=True)
+        source='exercisetype.image', allow_null=True, required=False)
 
     class Meta:
         model = Exercise
