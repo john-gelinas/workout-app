@@ -45,6 +45,6 @@ class Exercise(models.Model):
     elevation = models.IntegerField(blank=True, null=True)
     workout = models.ForeignKey(Workout, related_name='exercise', on_delete=models.CASCADE)
     user = models.ForeignKey(User, related_name='exercise', on_delete=models.CASCADE)
-    assisted = models.BooleanField
+    assisted = models.BooleanField(default=False)
     def __str__(self):
         return self.exercisetype.name + str(self.pk)
