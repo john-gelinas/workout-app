@@ -40,8 +40,14 @@ INSTALLED_APPS = [
     'workouts',
     'rest_framework',
     'frontend',
-    'livereload'
+    'livereload',
+    'knox'
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES':
+    ('knox.auth.TokenAuthentication',)
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
