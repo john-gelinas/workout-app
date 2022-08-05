@@ -20,7 +20,7 @@ import ExpandMore from "@mui/icons-material/ExpandMore";
 const WorkoutExerciseCard = ({ exerciseType, exerciseSets }) => {
   return (
     <Card variant="outlined">
-      <Accordion expanded={true}>
+      <Accordion defaultExpanded={true}>
         <AccordionSummary
           expandIcon={<ExpandMore />}
           aria-label="Expand"
@@ -31,29 +31,57 @@ const WorkoutExerciseCard = ({ exerciseType, exerciseSets }) => {
         </AccordionSummary>
         <AccordionDetails>
           <CardContent>
+            <form>
             <TableContainer component={Paper}>
               <Table sx={{ minWidth: 650 }}>
                 <TableHead>
                   <TableRow>
-                    <TableCell>Reps</TableCell>
-                    <TableCell align="right">Weight</TableCell>
+                      {fields.map((field) => (
+                        <TableCell key={field + "header"}>{field}</TableCell>
+                      ))}
+                      <TableCell></TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   {exerciseSets.map((set) => (
                     <TableRow
                       key={set.id}
-                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                        sx={{
+                          "&:last-child td, &:last-child th": { border: 0 },
+                        }}
                     >
-                      <TableCell component="th" scope="row">
-                        {set.reps}
+                        {fields.map((field) => (
+                          <TableCell key={field}>
+                            {set[field.toLowerCase()]}
                       </TableCell>
-                      <TableCell align="right">{set.weight}</TableCell>
+                        ))}
+                        <TableCell></TableCell>
                     </TableRow>
                   ))}
+                    <TableRow>
+                      {fields.map((field) => (
+                        <TableCell key={field + "input"}>
+                          <TextField
+                            id={field}
+                            label={field}
+                            name={field}
+                            variant="outlined"
+                            sx={{ mr: 1 }}
+                            onChange={onInputChange}
+                            value={inputs[field]}
+                          />
+                        </TableCell>
+                      ))}
+                      <TableCell>
+                        <Button type="submit" onClick={onAddSet}>
+                          Add
+                        </Button>
+                      </TableCell>
+                    </TableRow>
                 </TableBody>
               </Table>
             </TableContainer>
+            </form>
           </CardContent>
         </AccordionDetails>
       </Accordion>
