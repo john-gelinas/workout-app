@@ -35,11 +35,12 @@ const Workout = () => {
   // sort exercises then group them based on exercise type
   const groupedExercises = useMemo(() => {
     if (exercises !== []) {
-      // sort exercises, newest first
+      // sort exercises
       const sortedExercises = exercises.slice();
       sortedExercises.sort((a, b) => {
-        return Date.parse(b.date) - Date.parse(a.date);
+        return Date.parse(a.date) - Date.parse(b.date);
       });
+      console.log(sortedExercises)
       // group exercises by exercise type
       const grouped = sortedExercises.reduce((group, exercise) => {
         const full_type = `${exercise.type} (${exercise.category_name})`;
@@ -59,11 +60,30 @@ const Workout = () => {
       setLoader(<ThreeDotSpinner />);
     } else if (exercisesIsSuccess) {
       for (const exerciseType in groupedExercises) {
+        let fields = [];
+        if (groupedExercises[exerciseType][0].type_distance) {
+          fields.push("Distance");
+        }
+        if (groupedExercises[exerciseType][0].type_duration) {
+          fields.push("Duration");
+        }
+        if (groupedExercises[exerciseType][0].type_elevation) {
+          fields.push("Elevation");
+        }
+        if (groupedExercises[exerciseType][0].type_reps) {
+          fields.push("Reps");
+        }
+        if (groupedExercises[exerciseType][0].type_weight) {
+          fields.push("Weight");
+        }
+        
         // create set group for each exercise as a card
         let exerciseCard = (
-          <WorkoutExerciseCard key={exerciseType}
+          <WorkoutExerciseCard
+            key={exerciseType}
             exerciseType={exerciseType}
             exerciseSets={groupedExercises[exerciseType]}
+            fields={fields}
           />
         );
         exerciseList
