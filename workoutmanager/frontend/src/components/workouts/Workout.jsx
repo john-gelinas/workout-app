@@ -40,7 +40,7 @@ const Workout = () => {
       sortedExercises.sort((a, b) => {
         return Date.parse(a.date) - Date.parse(b.date);
       });
-      console.log(sortedExercises)
+      console.log(sortedExercises);
       // group exercises by exercise type
       const grouped = sortedExercises.reduce((group, exercise) => {
         const full_type = `${exercise.type} (${exercise.category_name})`;
@@ -61,20 +61,12 @@ const Workout = () => {
     } else if (exercisesIsSuccess) {
       for (const exerciseType in groupedExercises) {
         let fields = [];
-        if (groupedExercises[exerciseType][0].type_distance) {
-          fields.push("Distance");
+        const assistedOption = groupedExercises[exerciseType][0].assisted_option;
+        for (const type_option of ["type_distance", "type_duration","type_elevation","type_reps","type_weight"]) {
+          if (groupedExercises[exerciseType][0][type_option]) {
+            const category = type_option.slice(5,6).toUpperCase() + type_option.slice(6)
+            fields.push(category);
         }
-        if (groupedExercises[exerciseType][0].type_duration) {
-          fields.push("Duration");
-        }
-        if (groupedExercises[exerciseType][0].type_elevation) {
-          fields.push("Elevation");
-        }
-        if (groupedExercises[exerciseType][0].type_reps) {
-          fields.push("Reps");
-        }
-        if (groupedExercises[exerciseType][0].type_weight) {
-          fields.push("Weight");
         }
         
         // create set group for each exercise as a card
