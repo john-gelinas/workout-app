@@ -13,6 +13,9 @@ import {
   CardContent,
   TextField,
   Button,
+  FormGroup,
+  FormControlLabel,
+  Checkbox,
 } from "@mui/material";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
@@ -26,14 +29,24 @@ const WorkoutExerciseCard = ({
   exerciseSets,
   fields,
   assistedOption,
+}) => {
+  // turn fields array into object with empty fields and keys and empty values
+  const blankFieldInputsObject = fields.reduce((object, currentField) => {
+    object[currentField] = "";
+    return object;
+  }, {});
+  const [inputs, setInputs] = useState(blankFieldInputsObject);
   const [addExercise, addExerciseMetadata] = useAddExercisesMutation();
   const [assisted, setAssisted] = useState(false);
 
-  fields.forEach((field) => {
-    if (inputs[field] === undefined) {
-      setInputs({ ...inputs, [field]: "" });
-    }
-  });
+  const clearFields = () => {
+    setInputs(blankFieldInputsObject);
+    setAssisted(false);
+  };
+
+  useEffect(() => {
+    clearFields();
+  }, []);
 
   const onInputChange = (e) => {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
@@ -45,18 +58,30 @@ const WorkoutExerciseCard = ({
 
   const onAddSet = async (e) => {
     e.preventDefault();
-    console.log(inputs["Reps"]);
-    await addExercise({
-      exercisetype: exerciseSets[0]["exercisetype"],
-      reps: (inputs["Reps"] ?? null),
-      weight: (inputs["Weight"] ?? null),
-      duration: (inputs["Duration"] ?? null),
-      distance: (inputs["Distance"] ?? null),
-      elevation: (inputs["Elevation"] ?? null),
-      user: exerciseSets[0]["user"],
-      workout: exerciseSets[0]["workout"],
-    });
-    setInputs
+    // check that at least one field has been entered, otherwise reject
+    if (
+      inputs["Reps"] ||
+      inputs["Weight"] ||
+      inputs["Duration"] ||
+      inputs["Distance"] ||
+      inputs["Elevation"]
+    ) {
+      await addExercise({
+        exercisetype: exerciseSets[0]["exercisetype"],
+        reps: inputs["Reps"] || null,
+        weight: inputs["Weight"] || null,
+        duration: inputs["Duration"] || null,
+        distance: inputs["Distance"] || null,
+        elevation: inputs["Elevation"] || null,
+        user: exerciseSets[0]["user"],
+        workout: exerciseSets[0]["workout"],
+        assisted: assisted,
+      });
+      clearFields();
+    } else {
+      // error state
+      console.log("fill in at least one field");
+    }
   };
 
   return (
@@ -80,6 +105,7 @@ const WorkoutExerciseCard = ({
                       {fields.map((field) => (
                         <TableCell key={field + "header"}>{field}</TableCell>
                       ))}
+                      {assistedOption ? <TableCell>Assisted</TableCell> : ""}
                       <TableCell></TableCell>
                     </TableRow>
                   </TableHead>
