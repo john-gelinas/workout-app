@@ -76,6 +76,7 @@ const Workout = () => {
             exerciseType={exerciseType}
             exerciseSets={groupedExercises[exerciseType]}
             fields={fields}
+            assistedOption={assistedOption}
           />
         );
         exerciseList

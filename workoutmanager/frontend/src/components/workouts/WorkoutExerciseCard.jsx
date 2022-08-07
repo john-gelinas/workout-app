@@ -21,9 +21,13 @@ import Typography from "@mui/material/Typography";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import SetForm from "./SetForm";
 
-const WorkoutExerciseCard = ({ exerciseType, exerciseSets, fields }) => {
-  const [inputs, setInputs] = useState({});
+const WorkoutExerciseCard = ({
+  exerciseType,
+  exerciseSets,
+  fields,
+  assistedOption,
   const [addExercise, addExerciseMetadata] = useAddExercisesMutation();
+  const [assisted, setAssisted] = useState(false);
 
   fields.forEach((field) => {
     if (inputs[field] === undefined) {
@@ -33,6 +37,10 @@ const WorkoutExerciseCard = ({ exerciseType, exerciseSets, fields }) => {
 
   const onInputChange = (e) => {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
+  };
+
+  const handleAssisted = (e) => {
+    setAssisted(e.target.checked);
   };
 
   const onAddSet = async (e) => {
@@ -88,6 +96,11 @@ const WorkoutExerciseCard = ({ exerciseType, exerciseSets, fields }) => {
                             {set[field.toLowerCase()]}
                           </TableCell>
                         ))}
+                        {assistedOption ? (
+                          <TableCell>{set.assisted ? "yes" : "no"}</TableCell>
+                        ) : (
+                          ""
+                        )}
                         <TableCell></TableCell>
                       </TableRow>
                     ))}
@@ -105,6 +118,23 @@ const WorkoutExerciseCard = ({ exerciseType, exerciseSets, fields }) => {
                           />
                         </TableCell>
                       ))}
+                      {assistedOption ? (
+                        <TableCell>
+                          <FormGroup>
+                            <FormControlLabel
+                              control={
+                                <Checkbox
+                                  checked={assisted}
+                                  onChange={handleAssisted}
+                                />
+                              }
+                              label="Assisted"
+                            />
+                          </FormGroup>
+                        </TableCell>
+                      ) : (
+                        ""
+                      )}
                       <TableCell>
                         <Button type="submit" onClick={onAddSet}>
                           Add
