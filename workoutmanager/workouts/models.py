@@ -29,6 +29,7 @@ class ExerciseType(models.Model):
     duration = models.BooleanField(default=False)
     distance = models.BooleanField(default=False)
     elevation = models.BooleanField(default=False)
+    assisted_option = models.BooleanField(default=False)
     category = models.ForeignKey(ExerciseCategory, related_name='exercise_type', null=True, on_delete=models.SET_NULL)
     image = models.URLField(blank=True)
     def __str__(self):

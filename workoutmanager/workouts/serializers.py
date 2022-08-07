@@ -47,6 +47,8 @@ class ExerciseSerializer(serializers.ModelSerializer):
         source='exercisetype.elevation', allow_null=True, required=False)
     type_image = serializers.BooleanField(
         source='exercisetype.image', allow_null=True, required=False)
+    assisted_option = serializers.BooleanField(
+        source='exercisetype.assisted_option', allow_null=True, required=False)
 
     class Meta:
         model = Exercise

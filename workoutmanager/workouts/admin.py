@@ -18,7 +18,7 @@ class ExerciseCategoryAdmin(admin.ModelAdmin):
 
 class ExerciseTypeAdmin(admin.ModelAdmin):
     model = ExerciseType
-    list_display = ["name", "reps", "weight", "duration", "distance", "elevation", "category", "image"]
+    list_display = ["name", "reps", "weight", "duration", "distance", "elevation", "assisted_option", "category", "image"]
 
 class ExerciseAdmin(admin.ModelAdmin):
     model = Exercise
