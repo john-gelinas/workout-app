@@ -66,9 +66,9 @@ const Workout = () => {
           if (groupedExercises[exerciseType][0][type_option]) {
             const category = type_option.slice(5,6).toUpperCase() + type_option.slice(6)
             fields.push(category);
+          }
         }
-        }
-        
+
         // create set group for each exercise as a card
         let exerciseCard = (
           <WorkoutExerciseCard
