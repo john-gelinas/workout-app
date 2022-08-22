@@ -29,6 +29,9 @@ const WorkoutExerciseCard = ({
   exerciseSets,
   fields,
   assistedOption,
+  exerciseTypeId,
+  userId,
+  workoutId
 }) => {
   // turn fields array into object with empty fields and keys and empty values
   const blankFieldInputsObject = fields.reduce((object, currentField) => {
@@ -38,7 +41,6 @@ const WorkoutExerciseCard = ({
   const [inputs, setInputs] = useState(blankFieldInputsObject);
   const [addExercise, addExerciseMetadata] = useAddExercisesMutation();
   const [assisted, setAssisted] = useState(false);
-
   const clearFields = () => {
     setInputs(blankFieldInputsObject);
     setAssisted(false);
@@ -67,14 +69,14 @@ const WorkoutExerciseCard = ({
       inputs["Elevation"]
     ) {
       await addExercise({
-        exercisetype: exerciseSets[0]["exercisetype"],
+        exercisetype: exerciseTypeId,
         reps: inputs["Reps"] || null,
         weight: inputs["Weight"] || null,
         duration: inputs["Duration"] || null,
         distance: inputs["Distance"] || null,
         elevation: inputs["Elevation"] || null,
-        user: exerciseSets[0]["user"],
-        workout: exerciseSets[0]["workout"],
+        user: userId,
+        workout: workoutId,
         assisted: assisted,
       });
       clearFields();

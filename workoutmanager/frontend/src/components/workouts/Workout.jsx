@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo, Fragment } from "react";
-import { Button, Stack } from "@mui/material";
+import { Button, Stack, Typography } from "@mui/material";
 import ExerciseTypeList from "./ExerciseTypeList";
 import { useParams } from "react-router-dom";
 import ThreeDotSpinner from "../layout/ThreeDotSpinner";
@@ -13,6 +13,7 @@ const Workout = () => {
   const [loader, setLoader] = useState([]);
   const [empty, setEmpty] = useState([]);
   const [displayExercises, setDisplayExercises] = useState([]);
+  const [newExercise, setNewExercise] = useState();
   let { workoutId } = useParams();
   let exerciseList;
   // fetch exercises for given workout
@@ -34,13 +35,12 @@ const Workout = () => {
 
   // sort exercises then group them based on exercise type
   const groupedExercises = useMemo(() => {
-    if (exercises !== []) {
+    if (exercises.length != 0) {
       // sort exercises
       const sortedExercises = exercises.slice();
       sortedExercises.sort((a, b) => {
         return Date.parse(a.date) - Date.parse(b.date);
       });
-      console.log(sortedExercises);
       // group exercises by exercise type
       const grouped = sortedExercises.reduce((group, exercise) => {
         const full_type = `${exercise.type} (${exercise.category_name})`;
@@ -53,7 +53,7 @@ const Workout = () => {
       }, {});
       return grouped;
     }
-  }, [exercisesIsFetching]);
+  }, [exercisesIsFetching, exercisesIsLoading]);
 
   useEffect(() => {
     if (exercisesIsFetching) {
@@ -61,10 +61,18 @@ const Workout = () => {
     } else if (exercisesIsSuccess) {
       for (const exerciseType in groupedExercises) {
         let fields = [];
-        const assistedOption = groupedExercises[exerciseType][0].assisted_option;
-        for (const type_option of ["type_distance", "type_duration","type_elevation","type_reps","type_weight"]) {
+        const assistedOption =
+          groupedExercises[exerciseType][0].assisted_option;
+        for (const type_option of [
+          "type_distance",
+          "type_duration",
+          "type_elevation",
+          "type_reps",
+          "type_weight",
+        ]) {
           if (groupedExercises[exerciseType][0][type_option]) {
-            const category = type_option.slice(5,6).toUpperCase() + type_option.slice(6)
+            const category =
+              type_option.slice(5, 6).toUpperCase() + type_option.slice(6);
             fields.push(category);
           }
         }
@@ -77,6 +85,9 @@ const Workout = () => {
             exerciseSets={groupedExercises[exerciseType]}
             fields={fields}
             assistedOption={assistedOption}
+            exerciseTypeId={groupedExercises[exerciseType][0]["exercisetype"]}
+            userId={groupedExercises[exerciseType][0]["user"]}
+            workoutId={groupedExercises[exerciseType][0]["workout"]}
           />
         );
         exerciseList
@@ -84,20 +95,51 @@ const Workout = () => {
           : (exerciseList = [exerciseCard]);
       }
       setDisplayExercises(exerciseList);
+    setNewExercise();
+
       setLoader("");
       setEmpty("");
-      if (!exercises) {
-        setEmpty("No Exercises");
+      if (exercises.length == 0) {
+        setEmpty(<Typography>No Exercises</Typography>);
       } else {
         setEmpty("");
       }
     } else if (exercisesIsError) {
       setLoader("");
-      setEmpty("");
+      setEmpty("Error - Exercises could not be fetched");
     }
   }, [groupedExercises, exercisesIsFetching, exercisesIsSuccess]);
 
-  const onAddExercise = (exercise) => {
+  const onAddExercise = (exerciseType, userId = 1, workoutId = 1) => {
+    let fields = [];
+    for (const type_option of [
+      "distance",
+      "duration",
+      "elevation",
+      "reps",
+      "weight",
+    ]) {
+      if (exerciseType[type_option]) {
+        const category =
+          type_option.slice(0, 1).toUpperCase() + type_option.slice(1);
+        fields.push(category);
+      }
+    }
+    let exerciseTypeFullName = `${exerciseType.name} (${exerciseType.category_name})`;
+    let newExerciseCard = (
+      <WorkoutExerciseCard
+        key={exerciseType.name}
+        exerciseType={exerciseTypeFullName}
+        exerciseSets={[]}
+        fields={fields}
+        assistedOption={exerciseType.assisted_option}
+        exerciseTypeId={exerciseType.id}
+        userId={userId}
+        workoutId={workoutId}
+      />
+    );
+    setNewExercise(newExerciseCard);
+
     // close exercise list after a quick delay
     setTimeout(() => setSelectExerciseOpen(false), 200);
   };
@@ -117,6 +159,7 @@ const Workout = () => {
       </Button>
       {loader}
       {/* workout exercise components */}
+      {newExercise}
       {displayExercises}
       {empty}
       <ExerciseTypeList

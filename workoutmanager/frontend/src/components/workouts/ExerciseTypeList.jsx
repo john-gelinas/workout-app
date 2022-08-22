@@ -31,7 +31,6 @@ const ExerciseTypeList = ({ selectExerciseOpen, onAddExercise, onClickAway }) =>
     categoriesIsError,
     categoriesError,
   } = useGetExerciseCategoriesQuery();
-
   return selectExerciseOpen ? (
     <ClickAwayListener onClickAway={onClickAway}>
       <Card
@@ -47,7 +46,7 @@ const ExerciseTypeList = ({ selectExerciseOpen, onAddExercise, onClickAway }) =>
         >
           {exerciseTypes.map((exerciseType) => (
             <ListItem key={exerciseType.id}>
-              <Button onClick={onAddExercise}>
+              <Button onClick={() => onAddExercise(exerciseType)}>
                 <ListItemAvatar>
                   <Avatar></Avatar>
                 </ListItemAvatar>
