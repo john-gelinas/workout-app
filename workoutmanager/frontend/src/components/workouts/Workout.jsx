@@ -76,6 +76,12 @@ const Workout = () => {
             fields.push(category);
           }
         }
+        if (fields.includes("Reps") && fields.includes("Weight")) {
+          fields.push("1RM");
+          fields.push("Total Weight");
+        } else if (fields.includes("Distance") && fields.includes("Duration")) {
+          fields.push("Pace");
+        }
 
         // create set group for each exercise as a card
         let exerciseCard = (
