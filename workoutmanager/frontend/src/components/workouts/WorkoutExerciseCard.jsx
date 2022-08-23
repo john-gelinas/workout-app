@@ -1,5 +1,8 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { useAddExercisesMutation } from "../../api/apiSlice";
+import {
+  useAddExercisesMutation,
+  useDeleteExercisesMutation,
+} from "../../api/apiSlice";
 import {
   Card,
   Stack,
@@ -33,6 +36,16 @@ const WorkoutExerciseCard = ({
   userId,
   workoutId
 }) => {
+  const [deleteExercise, deleteMetadata] = useDeleteExercisesMutation();
+  const deleteExerciseClicked = async (id) => {
+    try {
+      await deleteExercise(id).unwrap();
+      console.log(`Deleted: ${id}`);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   // turn fields array into object with empty fields and keys and empty values
   const blankFieldInputsObject = fields.reduce((object, currentField) => {
     object[currentField] = "";
@@ -108,9 +121,10 @@ const WorkoutExerciseCard = ({
                         <TableCell key={field + "header"}>{field}</TableCell>
                       ))}
                       {assistedOption ? <TableCell>Assisted</TableCell> : ""}
-                      <TableCell></TableCell>
+                      <TableCell>Delete</TableCell>
                     </TableRow>
                   </TableHead>
+
                   <TableBody>
                     {exerciseSets.map((set) => (
                       <TableRow
@@ -129,7 +143,7 @@ const WorkoutExerciseCard = ({
                         ) : (
                           ""
                         )}
-                        <TableCell></TableCell>
+                        <TableCell> <Button onClick={() => deleteExerciseClicked(set.id)}>X</Button></TableCell>
                       </TableRow>
                     ))}
                     <TableRow>
