@@ -60,6 +60,13 @@ export const apiSlice = createApi({
             }),
             invalidatesTags: ['Exercises']
         }),
+        deleteExercises: builder.mutation({
+            query: setId => ({
+                url: `api/exercises/${setId}/`,
+                method: "DELETE",
+            }),
+            invalidatesTags: ['Exercises']
+        }),
         login: builder.mutation({
             query: credentials => ({
                 url: `accounts/auth/login/`,
@@ -106,6 +113,7 @@ export const {
     useGetExerciseTypesQuery,
     useGetExerciseCategoriesQuery,
     useAddExercisesMutation,
+    useDeleteExercisesMutation,
     useLoginMutation,
     useRegisterMutation,
     useLogoutMutation,
