@@ -26,6 +26,9 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import SetForm from "./SetForm";
+import oneRepMaxCalc from "./oneRepMaxCalc";
+import paceCalc from "./paceCalc";
+import totalWeightCalc from "./totalWeightCalc";
 
 const WorkoutExerciseCard = ({
   exerciseType,
@@ -34,7 +37,7 @@ const WorkoutExerciseCard = ({
   assistedOption,
   exerciseTypeId,
   userId,
-  workoutId
+  workoutId,
 }) => {
   const [deleteExercise, deleteMetadata] = useDeleteExercisesMutation();
   const deleteExerciseClicked = async (id) => {
@@ -52,6 +55,11 @@ const WorkoutExerciseCard = ({
     return object;
   }, {});
   const [inputs, setInputs] = useState(blankFieldInputsObject);
+  const [calculatedValues, setCalculatedValues] = useState({
+    "1RM": "",
+    "Total Weight": "",
+    Pace: "",
+  });
   const [addExercise, addExerciseMetadata] = useAddExercisesMutation();
   const [assisted, setAssisted] = useState(false);
   const clearFields = () => {
@@ -66,6 +74,27 @@ const WorkoutExerciseCard = ({
   const onInputChange = (e) => {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
   };
+
+  useEffect(() => {
+    setCalculatedValues((prevCalcValues) => {
+      return {
+        ...prevCalcValues,
+        "1RM": oneRepMaxCalc(inputs["Weight"], inputs["Reps"]),
+      };
+    });
+    setCalculatedValues((prevCalcValues) => {
+      return {
+        ...prevCalcValues,
+        Pace: paceCalc(inputs["Distance"], inputs["Duration"]),
+      };
+    });
+    setCalculatedValues((prevCalcValues) => {
+      return {
+        ...prevCalcValues,
+        "Total Weight": totalWeightCalc(inputs["Weight"], inputs["Reps"]),
+      };
+    });
+  }, [inputs]);
 
   const handleAssisted = (e) => {
     setAssisted(e.target.checked);
@@ -98,7 +127,6 @@ const WorkoutExerciseCard = ({
       console.log("fill in at least one field");
     }
   };
-
   return (
     <Card variant="outlined">
       <Accordion defaultExpanded={true}>
@@ -133,11 +161,33 @@ const WorkoutExerciseCard = ({
                           "&:last-child td, &:last-child th": { border: 0 },
                         }}
                       >
-                        {fields.map((field) => (
-                          <TableCell key={field}>
-                            {set[field.toLowerCase()]}
-                          </TableCell>
-                        ))}
+                        {fields.map((field) => {
+                          if (field === "1RM") {
+                            return (
+                              <TableCell key={field}>
+                                {oneRepMaxCalc(set["weight"], set["reps"])}
+                              </TableCell>
+                            );
+                          } else if (field === "Total Weight") {
+                            return (
+                              <TableCell key={field}>
+                                {totalWeightCalc(set["weight"], set["reps"])}
+                              </TableCell>
+                            );
+                          } else if (field === "Pace") {
+                            return (
+                              <TableCell key={field}>
+                                {paceCalc(set["distance"], set["duration"])}
+                              </TableCell>
+                            );
+                          } else {
+                            return (
+                              <TableCell key={field}>
+                                {set[field.toLowerCase()]}
+                              </TableCell>
+                            );
+                          }
+                        })}
                         {assistedOption ? (
                           <TableCell>{set.assisted ? "yes" : "no"}</TableCell>
                         ) : (
@@ -146,20 +196,45 @@ const WorkoutExerciseCard = ({
                         <TableCell> <Button onClick={() => deleteExerciseClicked(set.id)}>X</Button></TableCell>
                       </TableRow>
                     ))}
+
+                    {/* input row */}
+
                     <TableRow>
-                      {fields.map((field) => (
-                        <TableCell key={field + "input"}>
-                          <TextField
-                            id={field}
-                            label={field}
-                            name={field}
-                            variant="outlined"
-                            sx={{ mr: 1 }}
-                            onChange={onInputChange}
-                            value={inputs[field]}
-                          />
-                        </TableCell>
-                      ))}
+                      {fields.map((field) => {
+                        if (field === "1RM") {
+                          return (
+                            <TableCell key={field}>
+                              {calculatedValues["1RM"]}
+                            </TableCell>
+                          );
+                        } else if (field === "Total Weight") {
+                          return (
+                            <TableCell key={field}>
+                              {calculatedValues["Total Weight"]}
+                            </TableCell>
+                          );
+                        } else if (field === "Pace") {
+                          return (
+                            <TableCell key={field}>
+                              {calculatedValues["Pace"]}
+                            </TableCell>
+                          );
+                        } else {
+                          return (
+                            <TableCell key={field + "input"}>
+                              <TextField
+                                id={field}
+                                label={field}
+                                name={field}
+                                variant="outlined"
+                                sx={{ mr: 1 }}
+                                onChange={onInputChange}
+                                value={inputs[field]}
+                              />
+                            </TableCell>
+                          );
+                        }
+                      })}
                       {assistedOption ? (
                         <TableCell>
                           <FormGroup>
