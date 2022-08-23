@@ -2,6 +2,7 @@ import {
     createApi,
     fetchBaseQuery
 } from '@reduxjs/toolkit/query/react'
+import Cookies from 'js-cookie'
 
 export const apiSlice = createApi({
     reducerPath: 'api',
@@ -17,6 +18,7 @@ export const apiSlice = createApi({
             // if (token) {
             //     headers.set('Authorization', `Token ${token}`)
             // }
+
             headers.set('Content-Type', 'application/json')
             return headers
         }
