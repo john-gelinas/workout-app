@@ -1,5 +1,12 @@
-import React from "react";
-import { TableRow, TableCell, Button } from "@mui/material";
+import React, { useState } from "react";
+import {
+  TableRow,
+  TableCell,
+  Button,
+  Grow,
+  ClickAwayListener,
+} from "@mui/material";
+import ClearIcon from '@mui/icons-material/Clear';
 import oneRepMaxCalc from "./Calculations/oneRepMaxCalc";
 import paceCalc from "./Calculations/paceCalc";
 import totalWeightCalc from "./Calculations/totalWeightCalc";
@@ -7,6 +14,8 @@ import { useDeleteExercisesMutation } from "../../api/apiSlice";
 
 const ExerciseSetRow = ({ set, fields, assistedOption }) => {
   const [deleteExercise, deleteMetadata] = useDeleteExercisesMutation();
+  const [deleteConfirm, setDeleteConfirm] = useState(false);
+
   const deleteExerciseClicked = async (id) => {
     try {
       await deleteExercise(id).unwrap();
@@ -14,6 +23,14 @@ const ExerciseSetRow = ({ set, fields, assistedOption }) => {
     } catch (err) {
       console.log(err);
     }
+  };
+
+  const openDeleteConfirm = () => {
+    setDeleteConfirm((prev) => !prev);
+  };
+
+  const handleClickAway = () => {
+    setDeleteConfirm(false);
   };
 
   return (
@@ -51,9 +68,22 @@ const ExerciseSetRow = ({ set, fields, assistedOption }) => {
       ) : (
         ""
       )}
-      <TableCell>
+      <TableCell sx={{"position": "relative"}}>
         {" "}
-        <Button onClick={() => deleteExerciseClicked(set.id)}>X</Button>
+        <ClickAwayListener onClickAway={handleClickAway}>
+          <div>
+            <Grow in={!deleteConfirm} timeout={300} sx={{"position": "absolute",  "bottom": "10px"}}>
+              <Button onClick={openDeleteConfirm}>
+                <ClearIcon></ClearIcon>
+              </Button>
+            </Grow>
+            <Grow in={deleteConfirm} timeout={300} sx={{"position": "absolute", "bottom": "10px"}}>
+              <Button onClick={() => deleteExerciseClicked(set.id)}>
+                delete
+              </Button>
+            </Grow>
+          </div>
+        </ClickAwayListener>
       </TableCell>
     </TableRow>
   );
