@@ -23,9 +23,9 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import SetForm from "./SetForm";
-import oneRepMaxCalc from "./oneRepMaxCalc";
-import paceCalc from "./paceCalc";
-import totalWeightCalc from "./totalWeightCalc";
+import oneRepMaxCalc from "./Calculations/oneRepMaxCalc";
+import paceCalc from "./Calculations/paceCalc";
+import totalWeightCalc from "./Calculations/totalWeightCalc";
 import ExerciseSetRow from "./ExerciseSetRow";
 
 const WorkoutExerciseCard = ({

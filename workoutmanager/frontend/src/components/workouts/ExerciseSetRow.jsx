@@ -1,8 +1,8 @@
 import React from "react";
 import { TableRow, TableCell, Button } from "@mui/material";
-import oneRepMaxCalc from "./oneRepMaxCalc";
-import paceCalc from "./paceCalc";
-import totalWeightCalc from "./totalWeightCalc";
+import oneRepMaxCalc from "./Calculations/oneRepMaxCalc";
+import paceCalc from "./Calculations/paceCalc";
+import totalWeightCalc from "./Calculations/totalWeightCalc";
 import { useDeleteExercisesMutation } from "../../api/apiSlice";
 
 const ExerciseSetRow = ({ set, fields, assistedOption }) => {
