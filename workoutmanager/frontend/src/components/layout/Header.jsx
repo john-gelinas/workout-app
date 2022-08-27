@@ -16,7 +16,7 @@ import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
 import { useNavigate } from "react-router-dom";
 
 const pages = [
-  { page: "Workouts", link: "/" },
+  { page: "Workouts", link: "/workouts" },
   { page: "Personal Records", link: "/personalrecords" },
   { page: "About", link: "/about" },
 ];

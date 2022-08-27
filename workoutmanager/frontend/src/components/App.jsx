@@ -8,6 +8,10 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useSelector } from "react-redux";
 import { Paper, Box } from "@mui/material";
 import PersonalRecords from "./PersonalRecords/PersonalRecords";
+import Home from "./layout/Home";
+import Register from "../auth/Register";
+import Login from "../auth/Login";
+import About from "./layout/About";
 
 const App = () => {
   const currentMode = useSelector((state) => state.theme.mode);
@@ -33,28 +37,42 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <BrowserRouter>
-        <Paper elevation={1} sx={{ minHeight: "100vh", borderRadius: 0, display: "flex", flexDirection: "column" }}>
-          <Header />
+        <Header />
+        <Paper
+          elevation={1}
+          sx={{
+            minHeight: "100vh",
+            borderRadius: 0,
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
           <Box sx={{ mb: 3 }}>
-          <Routes>
-            <Route path="/workout">
-              <Route path=":workoutId" element={<Workout />}></Route>
-            </Route>
-            <Route path="/personalrecords" element={<PersonalRecords/>}>
-              
-            </Route>
-            <Route path="/" element={<Workouts />}></Route>
-            <Route
-              path="*"
-              element={
-                <main style={{ padding: "1rem" }}>
-                  <p style={{ textAlign: "center" }}>There's nothing here!</p>
-                </main>
-              }
-            />
-          </Routes></Box>
-          <Footer />
+            <Routes>
+              <Route path="/workout">
+                <Route path=":workoutId" element={<Workout />}></Route>
+              </Route>
+              <Route path="/workouts" element={<Workouts />}></Route>
+              <Route
+                path="/personalrecords"
+                element={<PersonalRecords />}
+              ></Route>
+              <Route path="/" element={<Home />}></Route>
+              <Route path="register" element={<Register />} />
+              <Route path="login" element={<Login />} />
+              <Route path="about" element={<About />} />
+              <Route
+                path="*"
+                element={
+                  <main style={{ padding: "1rem" }}>
+                    <p style={{ textAlign: "center" }}>There's nothing here!</p>
+                  </main>
+                }
+              />
+            </Routes>
+          </Box>
         </Paper>
+        <Footer />
       </BrowserRouter>
     </ThemeProvider>
   );
