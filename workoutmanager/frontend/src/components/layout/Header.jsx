@@ -183,7 +183,11 @@ const ResponsiveAppBar = () => {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting.page} onClick={() => navigate(setting.link)}>
+                <MenuItem key={setting.page} onClick={() => {
+                  handleCloseUserMenu();
+                  navigate(setting.link);
+                }}
+                >
                   <Typography textAlign="center">{setting.page}</Typography>
                 </MenuItem>
               ))}
