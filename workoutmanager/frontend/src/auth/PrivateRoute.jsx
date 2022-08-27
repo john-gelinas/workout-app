@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Route, Navigate, useLocation } from "react-router-dom";
-import ThreeDotSpinner from "../UI/ThreeDotSpinner";
+import ThreeDotSpinner from "../components/layout/ThreeDotSpinner";
 import { useSelector, useDispatch } from "react-redux/es/exports";
 
 const PrivateRoute = ({ children }) => {
