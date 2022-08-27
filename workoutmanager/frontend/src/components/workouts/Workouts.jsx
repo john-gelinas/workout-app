@@ -32,7 +32,7 @@ const Workouts = () => {
         <Button>Start Workout</Button>
         {workouts.map((workout) => (
           <div
-            onClick={() => navigate(`workout/${workout.id}`)}
+            onClick={() => navigate(`/workout/${workout.id}`)}
             key={workout.id}
           >
             <WorkoutCard
