@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useSelector } from "react-redux";
 import { Paper, Box } from "@mui/material";
+import PersonalRecords from "./PersonalRecords/PersonalRecords";
 
 const App = () => {
   const currentMode = useSelector((state) => state.theme.mode);
@@ -36,10 +37,13 @@ const App = () => {
           <Header />
           <Box sx={{ mb: 3 }}>
           <Routes>
-            <Route path="/" element={<Workouts />}></Route>
             <Route path="/workout">
               <Route path=":workoutId" element={<Workout />}></Route>
             </Route>
+            <Route path="/personalrecords" element={<PersonalRecords/>}>
+              
+            </Route>
+            <Route path="/" element={<Workouts />}></Route>
             <Route
               path="*"
               element={
