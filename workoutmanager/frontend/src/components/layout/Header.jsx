@@ -20,7 +20,13 @@ const pages = [
   { page: "Personal Records", link: "/personalrecords" },
   { page: "About", link: "/about" },
 ];
-const settings = ["Profile", "Workouts", "Logout"];
+const settings = [
+  { page: "Profile", link: "/profile" },
+  { page: "Workouts", link: "/workouts" },
+  { page: "Login", link: "/login" },
+  { page: "Register", link: "/register" },
+  { page: "Logout", link: "/logout" },
+];
 
 const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -177,8 +183,8 @@ const ResponsiveAppBar = () => {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+                <MenuItem key={setting.page} onClick={() => navigate(setting.link)}>
+                  <Typography textAlign="center">{setting.page}</Typography>
                 </MenuItem>
               ))}
             </Menu>

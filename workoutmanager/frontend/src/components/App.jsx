@@ -11,6 +11,7 @@ import PersonalRecords from "./PersonalRecords/PersonalRecords";
 import Home from "./layout/Home";
 import Register from "../auth/Register";
 import Login from "../auth/Login";
+import Logout from "../auth/Logout";
 import About from "./layout/About";
 import PrivateRoute from "../auth/PrivateRoute";
 
@@ -75,6 +76,7 @@ const App = () => {
               <Route path="/" element={<Home />}></Route>
               <Route path="register" element={<Register />} />
               <Route path="login" element={<Login />} />
+              <Route path="logout" element={<Logout />} />
               <Route path="about" element={<About />} />
               <Route
                 path="*"
