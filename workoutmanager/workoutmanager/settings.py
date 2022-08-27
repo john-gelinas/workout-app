@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'frontend',
     'livereload',
-    'knox'
+    'knox',
+    'accounts'
 ]
 
 REST_FRAMEWORK = {

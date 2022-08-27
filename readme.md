@@ -54,7 +54,7 @@ https://www.django-rest-framework.org/api-guide/viewsets/#modelviewset
 Serializers (incl. Write only fields, serializer validation)
 https://www.django-rest-framework.org/api-guide/serializers/#modelserializer
 
-Knox Token authentication:
+Knox Token authentication boilerplate:
 https://www.youtube.com/watch?v=0d7cIfiydAc&list=PLillGF-RfqbbRA-CIUxlxkUpbq0IFkX60&index=7
 https://github.com/bradtraversy/lead_manager_react_django
 
