@@ -12,6 +12,7 @@ import Home from "./layout/Home";
 import Register from "../auth/Register";
 import Login from "../auth/Login";
 import About from "./layout/About";
+import PrivateRoute from "../auth/PrivateRoute";
 
 const App = () => {
   const currentMode = useSelector((state) => state.theme.mode);
@@ -50,9 +51,23 @@ const App = () => {
           <Box sx={{ mb: 3 }}>
             <Routes>
               <Route path="/workout">
-                <Route path=":workoutId" element={<Workout />}></Route>
+                <Route
+                  path=":workoutId"
+                  element={
+                    <PrivateRoute>
+                      <Workout />
+                    </PrivateRoute>
+                  }
+                ></Route>
               </Route>
-              <Route path="/workouts" element={<Workouts />}></Route>
+              <Route
+                element={
+                  <PrivateRoute>
+                    <Workouts />
+                  </PrivateRoute>
+                }
+                path="/workouts"
+              ></Route>
               <Route
                 path="/personalrecords"
                 element={<PersonalRecords />}
