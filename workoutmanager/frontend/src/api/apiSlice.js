@@ -11,13 +11,13 @@ export const apiSlice = createApi({
         prepareHeaders: (headers, {
             getState
         }) => {
-            // // prioritize token in state, otherwise set token to last stored token
-            // const stateToken = getState().auth.token
-            // const localToken = localStorage.getItem("token")
-            // const token = (stateToken ? stateToken : localToken)
-            // if (token) {
-            //     headers.set('Authorization', `Token ${token}`)
-            // }
+            // prioritize token in state, otherwise set token to last stored token
+            const stateToken = getState().auth.token
+            const localToken = localStorage.getItem("token")
+            const token = (stateToken ? stateToken : localToken)
+            if (token) {
+                headers.set('Authorization', `Token ${token}`)
+            }
 
             headers.set('Content-Type', 'application/json')
             return headers
