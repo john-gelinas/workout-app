@@ -71,7 +71,11 @@ const App = () => {
               ></Route>
               <Route
                 path="/personalrecords"
-                element={<PersonalRecords />}
+                element={
+                  <PrivateRoute>
+                    <PersonalRecords />
+                  </PrivateRoute>
+                }
               ></Route>
               <Route path="/" element={<Home />}></Route>
               <Route path="register" element={<Register />} />
