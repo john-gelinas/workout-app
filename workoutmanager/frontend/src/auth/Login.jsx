@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useLoginMutation, useLogoutMutation } from "../api/apiSlice";
 import { userLoginSuccess, userLoginFail, userLogout } from "./authSlice";
 import { useDispatch, useSelector } from "react-redux/es/exports";
