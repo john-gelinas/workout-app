@@ -115,6 +115,7 @@ const Login = () => {
                     </InputAdornment>
                   ),
                 }}
+                margin="normal"
               />
             </Container>
 
