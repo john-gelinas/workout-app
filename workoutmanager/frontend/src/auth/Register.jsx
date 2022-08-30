@@ -1,7 +1,11 @@
 import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useLoginMutation, useLogoutMutation, useRegisterMutation } from "../api/apiSlice";
+import {
+  useLoginMutation,
+  useLogoutMutation,
+  useRegisterMutation,
+} from "../api/apiSlice";
 import { userLoginSuccess, userLoginFail, userLogout } from "./authSlice";
 import { useDispatch, useSelector } from "react-redux/es/exports";
 import {
@@ -16,7 +20,7 @@ import {
 } from "@mui/material";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import KeyIcon from "@mui/icons-material/Key";
-import EmailIcon from '@mui/icons-material/Email';
+import EmailIcon from "@mui/icons-material/Email";
 
 const Register = () => {
   const [username, setUsername] = useState("");
@@ -110,11 +114,10 @@ const Register = () => {
               }}
             >
               <TextField
-                required
                 id="email"
                 label="Email"
                 variant="standard"
-                value={username}
+                value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 InputProps={{
                   startAdornment: (
@@ -123,7 +126,6 @@ const Register = () => {
                     </InputAdornment>
                   ),
                 }}
-                margin="normal"
               />
             </Container>
 
@@ -149,6 +151,7 @@ const Register = () => {
                     </InputAdornment>
                   ),
                 }}
+                margin="normal"
               />
             </Container>
             <Container
@@ -164,7 +167,7 @@ const Register = () => {
                 type="password"
                 autoComplete="current-password"
                 variant="standard"
-                value={password}
+                value={password2}
                 onChange={(e) => setPassword2(e.target.value)}
                 InputProps={{
                   startAdornment: (
@@ -173,6 +176,7 @@ const Register = () => {
                     </InputAdornment>
                   ),
                 }}
+                margin="normal"
               />
             </Container>
 
@@ -218,5 +222,3 @@ const Register = () => {
 };
 
 export default Register;
-
-
