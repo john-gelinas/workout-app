@@ -1,9 +1,21 @@
 import React from "react";
 import { useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useLoginMutation, useLogoutMutation } from "../api/apiSlice";
 import { userLoginSuccess, userLoginFail, userLogout } from "./authSlice";
 import { useDispatch, useSelector } from "react-redux/es/exports";
+import {
+  TextField,
+  InputAdornment,
+  Typography,
+  Box,
+  Button,
+  CardContent,
+  Paper,
+  Container,
+} from "@mui/material";
+import AccountCircle from "@mui/icons-material/AccountCircle";
+import KeyIcon from "@mui/icons-material/Key";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -19,7 +31,7 @@ const Login = () => {
     apiLogout();
     dispatch(userLogout());
   };
-  // set from variable to redirect user back to page they came from/were intending to visit
+  // set "from" variable to redirect user back to page they came from/were intending to visit
   // https://stackblitz.com/github/remix-run/react-router/tree/main/examples/auth?file=src%2FApp.tsx
   const from = location.state?.from?.pathname || "/";
 
@@ -41,42 +53,109 @@ const Login = () => {
   };
 
   return (
-    <div className="col-md-6 m-auto">
-      <div className="card card-body mt-5">
-        <h2 className="text-center">Login</h2>
-        <form onSubmit={onSubmit}>
-          <div className="form-group">
-            <label>Username</label>
-            <input
-              type="text"
-              className="form-control"
-              name="username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-            />
-          </div>
-          <div className="form-group">
-            <label>Password</label>
-            <input
-              type="password"
-              className="form-control"
-              name="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
-          <div className="form-group">
-            <button className="btn btn-primary mt-1" type="submit ">
+    <Box sx={{ p: 2 }}>
+      <Paper elevation={3} sx={{ display: "block" }}>
+        <CardContent>
+          <form
+            onSubmit={onSubmit}
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignContent: "center",
+              justifyContent: "center",
+              width: "auto",
+            }}
+          >
+            <Typography variant="h2" align="center" gutterBottom>
               Login
-            </button>
-          </div>
-          <p>
-            Don't have an account?{" "}
-            <Link to="/leadmanager/register">Register</Link>
-          </p>
-        </form>
-      </div>
-    </div>
+            </Typography>
+            <Container
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              <TextField
+                required
+                id="standard-required"
+                label="Username"
+                variant="standard"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <AccountCircle />
+                    </InputAdornment>
+                  ),
+                }}
+                margin="normal"
+              />
+            </Container>
+
+            <Container
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              <TextField
+                required
+                id="standard-password-input"
+                label="Password"
+                type="password"
+                autoComplete="current-password"
+                variant="standard"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <KeyIcon />
+                    </InputAdornment>
+                  ),
+                }}
+              />
+            </Container>
+
+            <Container
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                mt: 2,
+              }}
+            >
+              <Button type="submit" variant="outlined">
+                Login
+              </Button>
+            </Container>
+
+            <Container
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                mt: 2,
+              }}
+            >
+              <Typography>Don't have an account?</Typography>
+            </Container>
+            <Container
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              <Button
+                sx={{ color: "primary.main" }}
+                onClick={() => navigate("/register")}
+              >
+                Register
+              </Button>
+            </Container>
+          </form>
+        </CardContent>
+      </Paper>
+    </Box>
   );
 };
 
