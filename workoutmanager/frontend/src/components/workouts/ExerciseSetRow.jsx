@@ -7,6 +7,7 @@ import {
   ClickAwayListener,
 } from "@mui/material";
 import ClearIcon from '@mui/icons-material/Clear';
+import EditIcon from '@mui/icons-material/Edit';
 import oneRepMaxCalc from "./Calculations/oneRepMaxCalc";
 import paceCalc from "./Calculations/paceCalc";
 import totalWeightCalc from "./Calculations/totalWeightCalc";
@@ -15,6 +16,7 @@ import { useDeleteExercisesMutation } from "../../api/apiSlice";
 const ExerciseSetRow = ({ set, fields, assistedOption }) => {
   const [deleteExercise, deleteMetadata] = useDeleteExercisesMutation();
   const [deleteConfirm, setDeleteConfirm] = useState(false);
+  const [editState, setEditState] = useState(false);
 
   const deleteExerciseClicked = async (id) => {
     try {
@@ -29,8 +31,22 @@ const ExerciseSetRow = ({ set, fields, assistedOption }) => {
     setDeleteConfirm((prev) => !prev);
   };
 
-  const handleClickAway = () => {
+  const handleEdit = () => {
+    // when edit button is clicked, change edit icon to cancel X, change delete icon to submit icon, change delete column header to submit
+    setEditState((prev) => !prev);
+  };
+
+  const submitEdit = async (id) => {
+    // submit edit api request
+
+  }
+
+  const handleClickAwayDelete = () => {
     setDeleteConfirm(false);
+  };
+
+  const handleClickAwayEdit = () => {
+    setEditState(false);
   };
 
   return (
@@ -40,6 +56,22 @@ const ExerciseSetRow = ({ set, fields, assistedOption }) => {
         "&:last-child td, &:last-child th": { border: 0 },
       }}
     >
+      <TableCell>
+      <ClickAwayListener onClickAway={handleClickAwayEdit}>
+          <div>
+            <Grow in={!editState} timeout={300}>
+              <Button onClick={handleEdit}>
+                <EditIcon></EditIcon>
+              </Button>
+            </Grow>
+            <Grow in={editState} timeout={300}>
+              <Button onClick={handleEdit}>
+                <ClearIcon></ClearIcon>
+              </Button>
+            </Grow>
+          </div>
+        </ClickAwayListener>
+      </TableCell>
       {fields.map((field) => {
         if (field === "1RM") {
           return (
@@ -70,16 +102,21 @@ const ExerciseSetRow = ({ set, fields, assistedOption }) => {
       )}
       <TableCell sx={{"position": "relative"}}>
         {" "}
-        <ClickAwayListener onClickAway={handleClickAway}>
+        <ClickAwayListener onClickAway={handleClickAwayDelete}>
           <div>
-            <Grow in={!deleteConfirm} timeout={300} sx={{"position": "absolute",  "bottom": "10px"}}>
+            <Grow in={!deleteConfirm && !editState} timeout={300} sx={{"position": "absolute",  "bottom": "10px"}}>
               <Button onClick={openDeleteConfirm}>
                 <ClearIcon></ClearIcon>
               </Button>
             </Grow>
-            <Grow in={deleteConfirm} timeout={300} sx={{"position": "absolute", "bottom": "10px"}}>
+            <Grow in={deleteConfirm && !editState} timeout={300} sx={{"position": "absolute", "bottom": "10px"}}>
               <Button onClick={() => deleteExerciseClicked(set.id)}>
-                delete
+                Delete
+              </Button>
+            </Grow>
+            <Grow in={editState && !deleteConfirm} timeout={300} sx={{"position": "absolute", "bottom": "10px"}}>
+              <Button onClick={() => submitEdit(set.id)}>
+                Submit
               </Button>
             </Grow>
           </div>
