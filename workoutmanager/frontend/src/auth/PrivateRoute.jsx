@@ -2,18 +2,14 @@ import React, { useEffect, useState } from "react";
 import { Route, Navigate, useLocation } from "react-router-dom";
 import ThreeDotSpinner from "../components/layout/ThreeDotSpinner";
 import { useSelector, useDispatch } from "react-redux/es/exports";
+import { loadUserToken, loadUser, userLoading } from "./authSlice";
+import { useGetUserQuery } from "../api/apiSlice";
 
 const PrivateRoute = ({ children }) => {
   const dispatch = useDispatch();
   let location = useLocation();
   const authState = useSelector((state) => state.auth);
-  // if no token in state, load user token from local storage
-  // TODO
-  // dispatch(loadUser)?
 
-  // load user from database
-  // TODO
-  // dispatch(getUserQuery)?
   if (authState) {
     if (authState.isLoading) {
       return <ThreeDotSpinner />;

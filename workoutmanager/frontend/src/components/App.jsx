@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Header from "./layout/Header";
 import Footer from "./layout/Footer";
 import Workouts from "./workouts/Workouts";
@@ -14,8 +14,17 @@ import Login from "../auth/Login";
 import Logout from "../auth/Logout";
 import About from "./layout/About";
 import PrivateRoute from "../auth/PrivateRoute";
+import { useDispatch } from "react-redux";
+import {
+  loadUserToken,
+  userLoading,
+  loadUser,
+  authError,
+} from "../auth/authSlice";
+import { useGetUserQuery } from "../api/apiSlice";
 
 const App = () => {
+  const dispatch = useDispatch();
   const currentMode = useSelector((state) => state.theme.mode);
   let mode = "light";
   const theme = createTheme({
@@ -35,6 +44,32 @@ const App = () => {
       },
     },
   });
+
+  // if no token in state, load user token from local storage
+  dispatch(loadUserToken());
+
+  // load user from database
+  // dispatch(userLoading());
+  const {
+    data: user = {},
+    isFetching,
+    isLoading,
+    isSuccess,
+    isError,
+    error,
+  } = useGetUserQuery();
+  const authState = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (isFetching || isLoading) {
+      dispatch(userLoading);
+    } else if (isSuccess) {
+      console.log(user);
+      dispatch(loadUser({ user: user, token: authState.token }));
+    } else if (isError) {
+      dispatch(authError());
+    }
+  }, [isSuccess, isLoading, isFetching, isError]);
 
   return (
     <ThemeProvider theme={theme}>
