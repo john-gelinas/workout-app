@@ -133,10 +133,11 @@ const WorkoutExerciseCard = ({
                 <Table sx={{ minWidth: 650 }}>
                   <TableHead>
                     <TableRow>
+                      <TableCell>Edit</TableCell>
                       {fields.map((field) => (
                         <TableCell key={field + "header"}>{field}</TableCell>
                       ))}
-                      {assistedOption ? <TableCell>Assisted</TableCell> : ""}
+                      {assistedOption ? <TableCell>Assisted</TableCell> : <></>}
                       <TableCell>Delete</TableCell>
                     </TableRow>
                   </TableHead>
