@@ -6,8 +6,8 @@ import {
   Grow,
   ClickAwayListener,
 } from "@mui/material";
-import ClearIcon from '@mui/icons-material/Clear';
-import EditIcon from '@mui/icons-material/Edit';
+import ClearIcon from "@mui/icons-material/Clear";
+import EditIcon from "@mui/icons-material/Edit";
 import oneRepMaxCalc from "./Calculations/oneRepMaxCalc";
 import paceCalc from "./Calculations/paceCalc";
 import totalWeightCalc from "./Calculations/totalWeightCalc";
@@ -38,8 +38,7 @@ const ExerciseSetRow = ({ set, fields, assistedOption }) => {
 
   const submitEdit = async (id) => {
     // submit edit api request
-
-  }
+  };
 
   const handleClickAwayDelete = () => {
     setDeleteConfirm(false);
@@ -56,15 +55,23 @@ const ExerciseSetRow = ({ set, fields, assistedOption }) => {
         "&:last-child td, &:last-child th": { border: 0 },
       }}
     >
-      <TableCell>
-      <ClickAwayListener onClickAway={handleClickAwayEdit}>
+      <TableCell size="small" sx={{ position: "relative" }}>
+        <ClickAwayListener onClickAway={handleClickAwayEdit}>
           <div>
-            <Grow in={!editState} timeout={300}>
+            <Grow
+              in={!editState}
+              timeout={300}
+              sx={{ position: "absolute", top: "0px", left: "0px" }}
+            >
               <Button onClick={handleEdit}>
                 <EditIcon></EditIcon>
               </Button>
             </Grow>
-            <Grow in={editState} timeout={300}>
+            <Grow
+              in={editState}
+              timeout={300}
+              sx={{ position: "absolute", top: "0px", left: "0px" }}
+            >
               <Button onClick={handleEdit}>
                 <ClearIcon></ClearIcon>
               </Button>
@@ -100,24 +107,33 @@ const ExerciseSetRow = ({ set, fields, assistedOption }) => {
       ) : (
         ""
       )}
-      <TableCell sx={{"position": "relative"}}>
-        {" "}
+      <TableCell size="small" sx={{ position: "relative" }}>
         <ClickAwayListener onClickAway={handleClickAwayDelete}>
           <div>
-            <Grow in={!deleteConfirm && !editState} timeout={300} sx={{"position": "absolute",  "bottom": "10px"}}>
+            <Grow
+              in={!deleteConfirm && !editState}
+              timeout={300}
+              sx={{ position: "absolute", top: "0px", bottom: "0px" }}
+            >
               <Button onClick={openDeleteConfirm}>
                 <ClearIcon></ClearIcon>
               </Button>
             </Grow>
-            <Grow in={deleteConfirm && !editState} timeout={300} sx={{"position": "absolute", "bottom": "10px"}}>
+            <Grow
+              in={deleteConfirm && !editState}
+              timeout={300}
+              sx={{ position: "absolute", top: "0px", bottom: "0px" }}
+            >
               <Button onClick={() => deleteExerciseClicked(set.id)}>
                 Delete
               </Button>
             </Grow>
-            <Grow in={editState && !deleteConfirm} timeout={300} sx={{"position": "absolute", "bottom": "10px"}}>
-              <Button onClick={() => submitEdit(set.id)}>
-                Submit
-              </Button>
+            <Grow
+              in={editState && !deleteConfirm}
+              timeout={300}
+              sx={{ position: "absolute", top: "0px", bottom: "0px" }}
+            >
+              <Button onClick={() => submitEdit(set.id)}>Submit</Button>
             </Grow>
           </div>
         </ClickAwayListener>

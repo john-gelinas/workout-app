@@ -133,7 +133,7 @@ const WorkoutExerciseCard = ({
                 <Table sx={{ minWidth: 650 }}>
                   <TableHead>
                     <TableRow>
-                      <TableCell>Edit</TableCell>
+                      <TableCell  size="small">Edit</TableCell>
                       {fields.map((field) => (
                         <TableCell key={field + "header"}>{field}</TableCell>
                       ))}
@@ -156,6 +156,7 @@ const WorkoutExerciseCard = ({
                     {/* input row */}
 
                     <TableRow>
+                      <TableCell size="small"></TableCell>
                       {fields.map((field) => {
                         if (field === "1RM") {
                           return (
