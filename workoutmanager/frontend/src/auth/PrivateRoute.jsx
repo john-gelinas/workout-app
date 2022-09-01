@@ -7,7 +7,13 @@ const PrivateRoute = ({ children }) => {
   const dispatch = useDispatch();
   let location = useLocation();
   const authState = useSelector((state) => state.auth);
+  // if no token in state, load user token from local storage
+  // TODO
+  // dispatch(loadUser)?
 
+  // load user from database
+  // TODO
+  // dispatch(getUserQuery)?
   if (authState) {
     if (authState.isLoading) {
       return <ThreeDotSpinner />;
