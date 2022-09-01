@@ -13,20 +13,13 @@ const authSlice = createSlice({
   reducers: {
     userLoading(state, action) {
       state.isLoading = true;
-      state.isAuthenticated = false;
+      state.isAuthenticated = null;
     },
-    userLoaded: {
-      reducer(state, action) {
-        state.isAuthenticated = true;
-        state.isLoading = false;
-        state.user = action.payload;
-        state.token = localStorage.getItem("token");
-      },
-      prepare(data) {
-        return {
-          payload: data,
-        };
-      },
+    loadUserToken(state, action) {
+      const localToken = localStorage.getItem("token");
+      if (localToken) {
+        state.token = localToken;
+      }
     },
     userLoginSuccess: {
       reducer(state, action) {
@@ -47,6 +40,7 @@ const authSlice = createSlice({
       state.isLoading = false;
       state.user = null;
       state.token = null;
+      localStorage.removeItem("token");
     },
     userLogout(state, action) {
       state.isAuthenticated = false;
@@ -62,22 +56,15 @@ const authSlice = createSlice({
       state.isAuthenticated = false;
       state.isLoading = false;
     },
-    applyLocalToken(state, action) {
-      token = localStorage.getItem("token");
-      if (token) {
-        state.token = token;
-      }
-    },
   },
 });
 
 export const {
   userLoading,
-  userLoaded,
+  loadUserToken,
   authError,
   userLoginSuccess,
   userLoginFail,
-  applyLocalToken,
   userLogout,
 } = authSlice.actions;
 
