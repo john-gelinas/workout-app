@@ -15,6 +15,19 @@ const authSlice = createSlice({
       state.isLoading = true;
       state.isAuthenticated = null;
     },
+    loadUser: {
+      reducer(state, action) {
+        state.isAuthenticated = true;
+        state.isLoading = false;
+        state.user = action.payload.user;
+        state.token = action.payload.token;
+      },
+      prepare(data) {
+        return {
+          payload: data,
+        };
+      },
+    },
     loadUserToken(state, action) {
       const localToken = localStorage.getItem("token");
       if (localToken) {
@@ -62,6 +75,7 @@ const authSlice = createSlice({
 export const {
   userLoading,
   loadUserToken,
+  loadUser,
   authError,
   userLoginSuccess,
   userLoginFail,
