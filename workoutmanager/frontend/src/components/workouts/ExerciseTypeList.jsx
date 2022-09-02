@@ -36,9 +36,9 @@ const ExerciseTypeList = ({ selectExerciseOpen, onAddExercise, onClickAway, work
       <Card
         sx={{
           display: open ? "block" : "none",
-          position: "absolute",
+          position: "fixed",
           zIndex: 10,
-          top: "100px",
+          top: "10px",
         }}
       >
         <List

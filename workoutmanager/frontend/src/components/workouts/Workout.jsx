@@ -156,6 +156,10 @@ const Workout = () => {
 
   return (
     <Stack mt={2} spacing={2} alignItems="center">
+      {loader}
+      {/* workout exercise components */}
+      {displayExercises}
+      {newExercise}
       <Button
         id="selectExercise"
         label="Select Exercise"
@@ -164,10 +168,6 @@ const Workout = () => {
       >
         Add Exercise
       </Button>
-      {loader}
-      {/* workout exercise components */}
-      {newExercise}
-      {displayExercises}
       {empty}
       <ExerciseTypeList
         selectExerciseOpen={selectExerciseOpen}
