@@ -62,12 +62,14 @@ const App = () => {
   const authState = useSelector((state) => state.auth);
 
   useEffect(() => {
-    if (isFetching || isLoading) {
+    if (isLoading || isFetching) {
+      console.info("Loading...");
       dispatch(userLoading);
     } else if (isSuccess) {
-      console.log(user);
+      console.info("User verified:", user.username);
       dispatch(loadUser({ user: user, token: authState.token }));
     } else if (isError) {
+      console.info("Failed to verify user token. Log in again.");
       dispatch(authError());
     }
   }, [isSuccess, isLoading, isFetching, isError]);
