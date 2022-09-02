@@ -7,6 +7,7 @@ import WorkoutExerciseHeader from "./WorkoutExerciseCard";
 import WorkoutExerciseSet from "./WorkoutExerciseSet";
 import { useGetExercisesQuery } from "../../api/apiSlice";
 import WorkoutExerciseCard from "./WorkoutExerciseCard";
+import { useSelector } from "react-redux";
 
 const Workout = () => {
   const [selectExerciseOpen, setSelectExerciseOpen] = useState(false);
@@ -14,6 +15,7 @@ const Workout = () => {
   const [empty, setEmpty] = useState([]);
   const [displayExercises, setDisplayExercises] = useState([]);
   const [newExercise, setNewExercise] = useState();
+  const userId = useSelector((state) => state.auth.user.id)
   let { workoutId } = useParams();
   let exerciseList;
   // fetch exercises for given workout
@@ -116,7 +118,7 @@ const Workout = () => {
     }
   }, [groupedExercises, exercisesIsFetching, exercisesIsSuccess]);
 
-  const onAddExercise = (exerciseType, userId = 1, workoutId = 1) => {
+  const onAddExercise = (exerciseType, workoutId) => {
     let fields = [];
     for (const type_option of [
       "distance",
@@ -140,13 +142,12 @@ const Workout = () => {
         fields={fields}
         assistedOption={exerciseType.assisted_option}
         exerciseTypeId={exerciseType.id}
-        userId={userId}
         workoutId={workoutId}
       />
     );
     setNewExercise(newExerciseCard);
 
-    // close exercise list after a quick delay
+    // after submitting, close exercise list after a quick delay
     setTimeout(() => setSelectExerciseOpen(false), 200);
   };
   const onClickAway = () => {
@@ -172,6 +173,7 @@ const Workout = () => {
         selectExerciseOpen={selectExerciseOpen}
         onClickAway={onClickAway}
         onAddExercise={onAddExercise}
+        workoutId={workoutId}
       />
     </Stack>
   );

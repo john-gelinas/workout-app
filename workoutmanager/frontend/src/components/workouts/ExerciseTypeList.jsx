@@ -14,7 +14,7 @@ import {
   useGetExerciseCategoriesQuery,
 } from "../../api/apiSlice";
 
-const ExerciseTypeList = ({ selectExerciseOpen, onAddExercise, onClickAway }) => {
+const ExerciseTypeList = ({ selectExerciseOpen, onAddExercise, onClickAway, workoutId }) => {
   const {
     data: exerciseTypes = [],
     typesIsFetching,
@@ -46,7 +46,7 @@ const ExerciseTypeList = ({ selectExerciseOpen, onAddExercise, onClickAway }) =>
         >
           {exerciseTypes.map((exerciseType) => (
             <ListItem key={exerciseType.id}>
-              <Button onClick={() => onAddExercise(exerciseType)}>
+              <Button onClick={() => onAddExercise(exerciseType, workoutId)}>
                 <ListItemAvatar>
                   <Avatar></Avatar>
                 </ListItemAvatar>
