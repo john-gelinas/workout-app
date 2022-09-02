@@ -27,6 +27,7 @@ import oneRepMaxCalc from "./Calculations/oneRepMaxCalc";
 import paceCalc from "./Calculations/paceCalc";
 import totalWeightCalc from "./Calculations/totalWeightCalc";
 import ExerciseSetRow from "./ExerciseSetRow";
+import { useSelector } from "react-redux";
 
 const WorkoutExerciseCard = ({
   exerciseType,
@@ -34,9 +35,9 @@ const WorkoutExerciseCard = ({
   fields,
   assistedOption,
   exerciseTypeId,
-  userId,
   workoutId,
 }) => {
+  const userId = useSelector((state) => state.auth.user.id);
   // turn fields array into object with empty fields and keys and empty values
   const blankFieldInputsObject = fields.reduce((object, currentField) => {
     object[currentField] = "";
@@ -133,7 +134,7 @@ const WorkoutExerciseCard = ({
                 <Table sx={{ minWidth: 650 }}>
                   <TableHead>
                     <TableRow>
-                      <TableCell  size="small">Edit</TableCell>
+                      <TableCell size="small">Edit</TableCell>
                       {fields.map((field) => (
                         <TableCell key={field + "header"}>{field}</TableCell>
                       ))}
