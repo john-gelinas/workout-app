@@ -45,11 +45,12 @@ const App = () => {
     },
   });
 
-  // if no token in state, load user token from local storage
-  dispatch(loadUserToken());
-
+  useEffect(() => {
+    // if no token in state, load user token from local storage
+    dispatch(loadUserToken());
+  }, []);
   // load user from database
-  // dispatch(userLoading());
+
   const {
     data: user = {},
     isFetching,
