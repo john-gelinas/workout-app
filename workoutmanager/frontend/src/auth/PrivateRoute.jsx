@@ -6,7 +6,6 @@ import { loadUserToken, loadUser, userLoading } from "./authSlice";
 import { useGetUserQuery } from "../api/apiSlice";
 
 const PrivateRoute = ({ children }) => {
-  const dispatch = useDispatch();
   let location = useLocation();
   const authState = useSelector((state) => state.auth);
 
