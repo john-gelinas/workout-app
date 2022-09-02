@@ -14,7 +14,12 @@ import {
   useGetExerciseCategoriesQuery,
 } from "../../api/apiSlice";
 
-const ExerciseTypeList = ({ selectExerciseOpen, onAddExercise, onClickAway, workoutId }) => {
+const ExerciseTypeList = ({
+  selectExerciseOpen,
+  onAddExercise,
+  onClickAway,
+  workoutId,
+}) => {
   const {
     data: exerciseTypes = [],
     typesIsFetching,
@@ -38,7 +43,9 @@ const ExerciseTypeList = ({ selectExerciseOpen, onAddExercise, onClickAway, work
           display: open ? "block" : "none",
           position: "fixed",
           zIndex: 10,
-          top: "10px",
+          top: "10vh",
+          overflowY: "scroll",
+          maxHeight: "75vh",
         }}
       >
         <List
@@ -46,18 +53,19 @@ const ExerciseTypeList = ({ selectExerciseOpen, onAddExercise, onClickAway, work
         >
           {exerciseTypes.map((exerciseType) => (
             <ListItem key={exerciseType.id}>
-              <Button onClick={() => onAddExercise(exerciseType, workoutId)}>
                 <ListItemAvatar>
                   <Avatar></Avatar>
                 </ListItemAvatar>
-                <ListItemText
-                  primary={exerciseType.name}
-                  secondary={
-                    exerciseCategories.find(
-                      (category) => category.id === exerciseType.category
-                    ).name
-                  }
-                />
+                  <ListItemText
+                    primary={exerciseType.name}
+                    secondary={
+                      exerciseCategories.find(
+                        (category) => category.id === exerciseType.category
+                      ).name
+                    }
+                  />
+              <Button onClick={() => onAddExercise(exerciseType, workoutId)}>
+                Add
               </Button>
             </ListItem>
           ))}
