@@ -15,22 +15,15 @@ const authSlice = createSlice({
       state.isLoading = true;
       state.isAuthenticated = null;
     },
-    loadUser: {
-      reducer(state, action) {
-        state.isAuthenticated = true;
-        state.isLoading = false;
-        state.user = action.payload.user;
-        state.token = action.payload.token;
-      },
-      prepare(data) {
-        return {
-          payload: data,
-        };
-      },
+    loadUser(state, action) {
+      state.isAuthenticated = true;
+      state.isLoading = false;
+      state.user = action.payload.user;
+      state.token = action.payload.token;
     },
     loadUserToken(state, action) {
       const localToken = localStorage.getItem("token");
-      if (localToken) {
+      if (localToken && !state.token) {
         state.token = localToken;
       }
     },
