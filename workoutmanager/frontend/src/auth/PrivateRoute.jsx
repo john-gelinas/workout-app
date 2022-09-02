@@ -12,7 +12,7 @@ const PrivateRoute = ({ children }) => {
   if (authState) {
     if (authState.isLoading) {
       return <ThreeDotSpinner />;
-    } else if (authState.isAuthenticated === true) {
+    } else if (authState.isAuthenticated) {
       return children;
     } else {
       if (!alert) {
