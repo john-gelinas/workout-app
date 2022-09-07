@@ -76,7 +76,8 @@ export const apiSlice = createApi({
                     password: credentials.password
                 }
             }),
-            providesTags: ['User']
+            providesTags: ['User'],
+            invalidatesTags: ['Exercises', 'Workout']
         }),
         register: builder.mutation({
             query: credentials => ({
@@ -88,21 +89,20 @@ export const apiSlice = createApi({
                     password: credentials.password
                 }
             }),
-            providesTags: ['User', 'Lead']
+            providesTags: ['User']
         }),
         getUser: builder.query({
             query: () => ({
                 url: `accounts/auth/user/`,
                 method: "GET"
-            }),
-            providesTags: ['User']
+            })
         }),
         logout: builder.mutation({
             query: () => ({
                 url: `accounts/auth/logout/`,
                 method: "POST"
             }),
-            invalidatesTags: ['User', 'Lead']
+            invalidatesTags: ['User', 'Exercises', 'Workout']
         }),
     })
 })
