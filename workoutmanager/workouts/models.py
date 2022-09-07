@@ -14,6 +14,7 @@ class Workout(models.Model):
     name = models.CharField(max_length=200)
     date = models.DateTimeField()
     duration = models.DurationField(blank=True, null=True)
+    user = models.ForeignKey(User, related_name='workout', on_delete=models.CASCADE)
     def __str__(self):
         return self.name
 
