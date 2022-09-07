@@ -68,5 +68,5 @@ Navbar and Styling via Material UI
 https://mui.com
 
 ## TODO:
-- edit workout form
-- add workout to grouped exercises function
+- start workout button and function
+- PRs api calls and logic
