@@ -17,6 +17,9 @@ class ExerciseViewSet(viewsets.ModelViewSet):
         permissions.IsAuthenticated
     ]
     serializer_class = ExerciseSerializer
+    def get_queryset(self):
+        user = self.request.user
+        return Exercise.objects.filter(user=user)
 
 class WorkoutViewSet(viewsets.ModelViewSet):
     queryset = Workout.objects.all()
@@ -24,6 +27,9 @@ class WorkoutViewSet(viewsets.ModelViewSet):
         permissions.IsAuthenticated
     ]
     serializer_class = WorkoutSerializer
+    def get_queryset(self):
+        user = self.request.user
+        return Workout.objects.filter(user=user)
 
 class ExerciseTypeViewSet(viewsets.ModelViewSet):
     queryset = ExerciseType.objects.all()
