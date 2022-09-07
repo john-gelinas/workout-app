@@ -7,35 +7,35 @@ from .serializers import ProfileSerializer, WorkoutSerializer, ExerciseSerialize
 class ProfileViewSet(viewsets.ModelViewSet):
     queryset = Profile.objects.all()
     permission_classes = [
-        permissions.AllowAny
+        permissions.IsAuthenticated
     ]
     serializer_class = ProfileSerializer
 
 class ExerciseViewSet(viewsets.ModelViewSet):
     queryset = Exercise.objects.all()
     permission_classes = [
-        permissions.AllowAny
+        permissions.IsAuthenticated
     ]
     serializer_class = ExerciseSerializer
 
 class WorkoutViewSet(viewsets.ModelViewSet):
     queryset = Workout.objects.all()
     permission_classes = [
-        permissions.AllowAny
+        permissions.IsAuthenticated
     ]
     serializer_class = WorkoutSerializer
 
 class ExerciseTypeViewSet(viewsets.ModelViewSet):
     queryset = ExerciseType.objects.all()
     permission_classes = [
-        permissions.AllowAny
+        permissions.IsAuthenticated
     ]
     serializer_class = ExerciseTypeSerializer
 
 class ExerciseCategoryViewSet(viewsets.ModelViewSet):
     queryset = ExerciseCategory.objects.all()
     permission_classes = [
-        permissions.AllowAny
+        permissions.IsAuthenticated
     ]
     serializer_class = ExerciseCategorySerializer
 
