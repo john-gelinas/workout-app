@@ -31,6 +31,14 @@ export const apiSlice = createApi({
             }),
             providesTags: ['Workout']
         }),
+        newWorkout: builder.query({
+            query: (workout) => ({
+                url: 'api/workouts/',
+                method: 'POST',
+                body: workout,
+            }),
+            invalidatesTags: ['Workout']
+        }),
         getExercises: builder.query({
             query: () => ({
                 url: 'api/exercises/',
