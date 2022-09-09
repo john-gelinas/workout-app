@@ -1,0 +1,8 @@
+POST http://127.0.0.1:8000/api/workouts/ HTTP/1.1
+content-type: application/json
+authorization: Token 13b87e29dcdf6d2f86eea97d3702c2b3ff6a1e0ae03ac63d87f8080f8a925db0
+
+{
+    "name": "workout 4",
+    "user": 3
+}

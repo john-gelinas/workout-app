@@ -117,6 +117,7 @@ export const apiSlice = createApi({
 
 export const {
     useGetWorkoutsQuery,
+    useNewWorkoutMutation,
     useGetExercisesQuery,
     useGetExerciseTypesQuery,
     useGetExerciseCategoriesQuery,
