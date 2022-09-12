@@ -30,7 +30,7 @@ const Workout = () => {
     selectFromResult: (result) => ({
       ...result,
       selectedData: result.data?.filter(
-        (exercise) => exercise.workout == workoutId
+        (exercise) => (exercise.workout == workoutId) && (exercise.user == userId)
       ),
     }),
   });
