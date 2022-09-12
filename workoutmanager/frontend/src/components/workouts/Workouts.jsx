@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import WorkoutCard from "./WorkoutCard";
 import Divider from "@mui/material/Divider";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import { useGetWorkoutsQuery } from "../../api/apiSlice";
+import { useGetWorkoutsQuery, useNewWorkoutMutation } from "../../api/apiSlice";
 import { useNavigate } from "react-router-dom";
+import NewWorkoutCard from "./NewWorkoutCard";
 
 const Workouts = () => {
   let navigate = useNavigate();
@@ -19,6 +20,12 @@ const Workouts = () => {
     error,
   } = useGetWorkoutsQuery();
 
+  const [addWorkout, addWorkoutMetadata] = useNewWorkoutMutation();
+
+  const onAddWorkout = () => {
+    // post new workout to api
+    // navigate to new workout page
+  };
 
   const onClickAway = () => {
     setNewWorkoutOpen(false);
