@@ -31,7 +31,7 @@ export const apiSlice = createApi({
             }),
             providesTags: ['Workout']
         }),
-        newWorkout: builder.query({
+        newWorkout: builder.mutation({
             query: (workout) => ({
                 url: 'api/workouts/',
                 method: 'POST',
