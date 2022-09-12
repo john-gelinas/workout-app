@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 
 const Workouts = () => {
   let navigate = useNavigate();
+  const [newWorkoutOpen, setNewWorkoutOpen] = useState(false);
   const {
     data: workouts = [],
     isFetching,
@@ -17,6 +18,11 @@ const Workouts = () => {
     isError,
     error,
   } = useGetWorkoutsQuery();
+
+
+  const onClickAway = () => {
+    setNewWorkoutOpen(false);
+  };
 
   return (
     <div style={{ width: "fit-content", margin: "auto" }}>
@@ -29,7 +35,7 @@ const Workouts = () => {
         <Typography variant="h2" component="div">
           Workouts
         </Typography>
-        <Button>Start Workout</Button>
+        <Button onClick={() => setNewWorkoutOpen(true)}>Start Workout</Button>
         {workouts.map((workout) => (
           <div
             onClick={() => navigate(`/workout/${workout.id}`)}
@@ -42,6 +48,11 @@ const Workouts = () => {
             />
           </div>
         ))}
+        <NewWorkoutCard
+          newWorkoutOpen={newWorkoutOpen}
+          onClickAway={onClickAway}
+          onAddWorkout={onAddWorkout}
+        />
       </Stack>
     </div>
   );
