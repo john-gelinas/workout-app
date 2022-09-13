@@ -7,6 +7,7 @@ import Button from "@mui/material/Button";
 import { useGetWorkoutsQuery, useNewWorkoutMutation } from "../../api/apiSlice";
 import { useNavigate } from "react-router-dom";
 import NewWorkoutCard from "./NewWorkoutCard";
+import { useSelector } from "react-redux";
 
 const Workouts = () => {
   let navigate = useNavigate();
@@ -21,10 +22,14 @@ const Workouts = () => {
   } = useGetWorkoutsQuery();
 
   const [addWorkout, addWorkoutMetadata] = useNewWorkoutMutation();
+  const userId = useSelector((state) => state.auth.user.id);
 
-  const onAddWorkout = () => {
+  const onAddWorkout = async (name) => {
     // post new workout to api
+    const newWorkout = await addWorkout({ name: name, user: userId });
     // navigate to new workout page
+    console.log(newWorkout, "new workout return")
+    navigate(`/workout/${newWorkout.data.id}`);
   };
 
   const onClickAway = () => {

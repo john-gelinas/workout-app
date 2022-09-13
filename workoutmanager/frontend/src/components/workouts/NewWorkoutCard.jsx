@@ -1,9 +1,12 @@
 import React from "react";
-import { ClickAwayListener, Card, Button } from "@mui/material";
+import { ClickAwayListener, Card, Button, TextField } from "@mui/material";
 import { useState } from "react";
 
 const NewWorkoutCard = ({ newWorkoutOpen, onAddWorkout, onClickAway }) => {
   const [newWorkoutName, setNewWorkoutName] = useState("New Workout");
+  const onNameChange = (e) => {
+    setNewWorkoutName(e.target.value);
+  };
 
   return newWorkoutOpen ? (
     <ClickAwayListener onClickAway={onClickAway}>
@@ -17,8 +20,16 @@ const NewWorkoutCard = ({ newWorkoutOpen, onAddWorkout, onClickAway }) => {
           maxHeight: "75vh",
         }}
       >
+        <TextField
+          id="Workout Name"
+          label="Workout Name"
+          name="Workout Name"
+          variant="outlined"
+          sx={{ mr: 1 }}
+          onChange={onNameChange}
+          value={newWorkoutName}
+        />
         <Button onClick={() => onAddWorkout(newWorkoutName)}>Start</Button>
-        {newWorkoutName}
       </Card>
     </ClickAwayListener>
   ) : null;
