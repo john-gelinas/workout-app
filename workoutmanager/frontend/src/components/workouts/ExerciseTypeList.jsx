@@ -40,7 +40,6 @@ const ExerciseTypeList = ({
     <ClickAwayListener onClickAway={onClickAway}>
       <Card
         sx={{
-          display: open ? "block" : "none",
           position: "fixed",
           zIndex: 10,
           top: "10vh",
