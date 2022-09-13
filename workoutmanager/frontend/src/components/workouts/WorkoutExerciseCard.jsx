@@ -22,7 +22,6 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMore from "@mui/icons-material/ExpandMore";
-import SetForm from "./SetForm";
 import oneRepMaxCalc from "./Calculations/oneRepMaxCalc";
 import paceCalc from "./Calculations/paceCalc";
 import totalWeightCalc from "./Calculations/totalWeightCalc";

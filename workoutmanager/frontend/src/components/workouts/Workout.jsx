@@ -3,8 +3,6 @@ import { Button, Stack, Typography } from "@mui/material";
 import ExerciseTypeList from "./ExerciseTypeList";
 import { useParams } from "react-router-dom";
 import ThreeDotSpinner from "../layout/ThreeDotSpinner";
-import WorkoutExerciseHeader from "./WorkoutExerciseCard";
-import WorkoutExerciseSet from "./WorkoutExerciseSet";
 import { useGetExercisesQuery } from "../../api/apiSlice";
 import WorkoutExerciseCard from "./WorkoutExerciseCard";
 import { useSelector } from "react-redux";
