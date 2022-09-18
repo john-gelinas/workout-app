@@ -1,15 +1,33 @@
-# Dev Server
+This application leverages the Django python framework to host a workout website in two main appllications. 
+
+The first is the backend, which holds the models for the workouts, exercises, users, and other data tables needed for saving data and authenticating users. This backend also uses the Django Rest Framework (DRF) to expose several APIs, allowing the frontend to gain access to the user's workout and exercise data. Additionally, Django Rest Knox provides token authentication upon user login. This authentication is superior to standard DRF tokens as mulitple tokens can be generated per user, tokens are encrypted, and tokens can be set to expire.
+
+The second is the ReactJS frontend, which is transpiled using Webpack and Babel, also hosted as a separate app as a single page frontend application on the Django project. This React app is created primarily through Material UI components for a consistent and recognizable style.
+
+###Future features:
+-Accessibility links for skipping to main content
+-Accessibility test for more components
+-Personal Records Page:
+    -List personal records for each lift and exercise
+    -Graph progress over time in each exercise
+    -Set goals and plan workouts
+
+#To run site locally
+## Dev Server
+Assumes node and npm are installed
 ### Terminal:
+`npm install`
+to ensure you also install the dev dependencies, you can add the flag `--production=false`
 `npm run dev`
 
-### New Terminal:
+### New Terminal For Django Hot Reload:
 `python manage.py livereload`
 
-### New Terminal:
+### New Terminal to Run Django Server:
 `python manage.py runserver`
 
 
-# Build
+## Build
 ### Terminal:
 `npm run build`
 
@@ -18,21 +36,8 @@
 ### New Terminal:
 `python manage.py runserver`
 
-## Frameworks:
 
-- react
-    - redux
-        - Redux Toolkit
-        - RTK Query
-    - react alert
-- webpack
-- babel
-
-- Django
-    - djangorestframework
-
-
-## Tutorials and Documentation
+## Tutorials and Documentation used
 Redux API queries using Redux Toolkit an RTK Query
 https://redux.js.org/tutorials/essentials/part-7-rtk-query-basics#refreshing-cached-data
 
