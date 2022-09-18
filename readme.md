@@ -1,6 +1,6 @@
 This application leverages the Django python framework to host a workout website in two main appllications. 
 
-The first is the backend, which holds the models for the workouts, exercises, users, and other data tables needed for saving data and authenticating users. This backend also uses the Django Rest Framework (DRF) to expose several APIs, allowing the frontend to gain access to the user's workout and exercise data. Additionally, Django Rest Knox provides token authentication upon user login. This authentication is superior to standard DRF tokens as mulitple tokens can be generated per user, tokens are encrypted, and tokens can be set to expire.
+The first is the backend, which holds the models for the workouts, exercises, users, and other data tables needed for saving data and authenticating users. This backend uses the Django Rest Framework (DRF) to expose several APIs, allowing the frontend to gain access to the user's workout and exercise data. Additionally, Django Rest Knox provides token authentication upon user login. This authentication is superior to standard DRF tokens as mulitple tokens can be generated per user, tokens are encrypted, and tokens can be set to expire.
 
 The second is the ReactJS frontend, which is transpiled using Webpack and Babel, also hosted as a separate app as a single page frontend application on the Django project. This React app is created primarily through Material UI components for a consistent and recognizable style.
 
