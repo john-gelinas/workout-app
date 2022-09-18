@@ -2,7 +2,7 @@ This application leverages the Django python framework to host a workout website
 
 The first is the backend, which holds the models for the workouts, exercises, users, and other data tables needed for saving data and authenticating users. This backend uses the Django Rest Framework (DRF) to expose several APIs, allowing the frontend to gain access to the user's workout and exercise data. Additionally, Django Rest Knox provides token authentication upon user login. This authentication is superior to standard DRF tokens as mulitple tokens can be generated per user, tokens are encrypted, and tokens can be set to expire.
 
-The second is the ReactJS frontend, which is transpiled using Webpack and Babel, also hosted as a separate app as a single page frontend application on the Django project. This React app is created primarily through Material UI components for a consistent and recognizable style.
+The second is the ReactJS frontend, which is transpiled using Webpack and Babel, also hosted as a separate app as a single page frontend application on the Django project. This React app is created primarily through Material UI components for a consistent and recognizable style. The global state is managed through Redux, and more specifically, the modern Redux Toolkit. While this application may not be of a large enough size or complexity to warrant a state-management framework, it was still a great learning opportunity that made global state simple to manage (dark mode for example) as well as easy to write but robust API calls with RTK Query. In hindsight, writing the frontend in Typescript would have been a great choice, but thankfully as a sole developer on this project I did not run into too many type issues.
 
 ## Example Video
 
