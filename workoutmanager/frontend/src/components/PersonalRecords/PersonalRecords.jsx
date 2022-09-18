@@ -1,11 +1,12 @@
-import React from 'react'
+import React from "react";
 
 const PersonalRecords = () => {
   return (
-    <div>
-      PRs
-    </div>
-  )
-}
+    <>
+      <div>PRs</div>
+      <p>This page is under construction</p>
+    </>
+  );
+};
 
-export default PersonalRecords
+export default PersonalRecords;
