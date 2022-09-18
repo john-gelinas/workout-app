@@ -48,6 +48,7 @@ const Login = () => {
     } catch (error) {
       dispatch(userLoginFail());
       console.error("error", "Incorrect Credentials");
+      alert("Incorrect Credentials")
     } finally {
     }
   };
