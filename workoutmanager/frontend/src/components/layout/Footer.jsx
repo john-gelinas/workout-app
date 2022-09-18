@@ -6,6 +6,7 @@ import { switchTheme } from "../../app/themeSlice";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import GitHubIcon from "@mui/icons-material/GitHub";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   const theme = useTheme();
@@ -23,17 +24,32 @@ const Footer = () => {
     >
       <Stack direction="row" justifyContent="space-between" alignItems="center">
         <Typography
-          sx={{ color: "white", display: "inline", verticalAlign: "bottom", mr: "auto" }}
+          sx={{
+            color: "white",
+            display: "inline",
+            verticalAlign: "bottom",
+            mr: "auto",
+          }}
           variant="footer"
         >
           &copy; John Gelinas 2022
         </Typography>
-        <Typography sx={{ color: "white", display: "inline", verticalAlign: "bottom" }} variant="footer" component="span">
-          <IconButton variant="contained">
-            <GitHubIcon />
-          </IconButton>
-        </Typography>
-        <Typography variant="footer" sx={{ color: "white", display: "inline", verticalAlign: "bottom" }} component="span">
+        <a href="https://www.github.com/john-gelinas">
+          <Typography
+            sx={{ color: "white", display: "inline", verticalAlign: "bottom" }}
+            variant="footer"
+            component="span"
+          >
+            <IconButton variant="contained">
+              <GitHubIcon />
+            </IconButton>
+          </Typography>
+        </a>
+        <Typography
+          variant="footer"
+          sx={{ color: "white", display: "inline", verticalAlign: "bottom" }}
+          component="span"
+        >
           <IconButton
             variant="contained"
             onClick={(e) => toggleDarkMode(currentMode, e)}
