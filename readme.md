@@ -73,6 +73,4 @@ Navbar and Styling via Material UI
 https://mui.com
 
 ## TODO:
-- start workout button and function
 - PRs api calls and logic
-- fix workout permissions so that users cannot view workouts that they do not own
