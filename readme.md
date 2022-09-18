@@ -4,7 +4,10 @@ The first is the backend, which holds the models for the workouts, exercises, us
 
 The second is the ReactJS frontend, which is transpiled using Webpack and Babel, also hosted as a separate app as a single page frontend application on the Django project. This React app is created primarily through Material UI components for a consistent and recognizable style.
 
-###Future features:
+## Example Video
+
+
+### Future features:
 -Accessibility links for skipping to main content
 -Accessibility test for more components
 -Personal Records Page:
@@ -12,7 +15,7 @@ The second is the ReactJS frontend, which is transpiled using Webpack and Babel,
     -Graph progress over time in each exercise
     -Set goals and plan workouts
 
-#To run site locally
+# To run site locally
 ## Dev Server
 Assumes node and npm are installed
 ### Terminal:
