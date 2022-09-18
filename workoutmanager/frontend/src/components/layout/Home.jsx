@@ -7,10 +7,11 @@ const Home = () => {
     <Card>
       <CardContent>
         <h1>Home</h1>
-        <p>
+        <Typography>
           Record workouts, exercises, and track your PRs. Click the workouts tab
           to get started.
-        </p>
+        </Typography>
+        <hr></hr>
         <Link to="/workouts">
           <Button>
             <Typography variant="button">Take Me to Workouts</Typography>
