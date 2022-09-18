@@ -12,7 +12,7 @@ Other features:
    - Collapsable exercise categories in workout
 
 ## Example Video
-
+![Workout App Demonstration](/workoutAppDemo.gif)
 
 ### Future features:
 - Accessibility links for skipping to main content
