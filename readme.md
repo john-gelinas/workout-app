@@ -24,6 +24,7 @@ Assumes node and npm are installed
 `npm install`
 
 to ensure you also install the dev dependencies, you can add the flag `--production=false`
+
 `npm run dev`
 
 ### New Terminal For Django Hot Reload:
@@ -36,8 +37,6 @@ to ensure you also install the dev dependencies, you can add the flag `--product
 ## Build
 ### Terminal:
 `npm run build`
-
-*edit settings.py*
 
 ### New Terminal:
 `python manage.py runserver`
