@@ -18,8 +18,10 @@ The second is the ReactJS frontend, which is transpiled using Webpack and Babel,
 # To run site locally
 ## Dev Server
 Assumes node and npm are installed
-### Terminal:
+### Terminal to install python and node dependencies:
+`pip install -r requirements.txt`
 `npm install`
+
 to ensure you also install the dev dependencies, you can add the flag `--production=false`
 `npm run dev`
 
