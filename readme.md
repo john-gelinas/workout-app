@@ -9,7 +9,7 @@ The second is the ReactJS frontend, which is transpiled using Webpack and Babel,
 
 ### Future features:
 - Accessibility links for skipping to main content
-- Accessibility test for more components
+- Accessibility text for more components
 - Personal Records Page:
     - List personal records for each lift and exercise
     - Graph progress over time in each exercise
