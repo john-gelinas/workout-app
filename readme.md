@@ -20,6 +20,7 @@ The second is the ReactJS frontend, which is transpiled using Webpack and Babel,
 Assumes node and npm are installed
 ### Terminal to install python and node dependencies:
 `pip install -r requirements.txt`
+
 `npm install`
 
 to ensure you also install the dev dependencies, you can add the flag `--production=false`
