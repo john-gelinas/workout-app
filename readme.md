@@ -4,6 +4,13 @@ The first is the backend, which holds the models for the workouts, exercises, us
 
 The second is the ReactJS frontend, which is transpiled using Webpack and Babel, also hosted as a separate app as a single page frontend application on the Django project. This React app is created primarily through Material UI components for a consistent and recognizable style. The global state is managed through Redux, and more specifically, the modern Redux Toolkit. While this application may not be of a large enough size or complexity to warrant a state-management framework, it was still a great learning opportunity that made global state simple to manage (dark mode for example) as well as easy to write but robust API calls with RTK Query. In hindsight, writing the frontend in Typescript would have been a great choice, but thankfully as a sole developer on this project I did not run into too many type issues.
 
+Other features:
+   - Private routes with "from page" redirect
+   - Light / Dark mode button in footer
+   - Dynamic navbar
+   - Click-away listeners on UI elements (e.g. new workout, delete confirmations)
+   - Collapsable exercise categories in workout
+
 ## Example Video
 
 
@@ -14,6 +21,9 @@ The second is the ReactJS frontend, which is transpiled using Webpack and Babel,
     - List personal records for each lift and exercise
     - Graph progress over time in each exercise
     - Set goals and plan workouts
+- Profile page with other health information / goals
+- Edit exercises in workout
+- Mobile-friendly exercise display
 
 # To run site locally
 ## Dev Server
@@ -79,3 +89,8 @@ https://mui.com
 
 ## TODO:
 - PRs api calls and logic
+- Improved alert system - manage alerts via redux
+- Display PRs in current workouts
+- Profile page
+- Edit exercise set
+- Make exercise cards / tables mobile friendly
